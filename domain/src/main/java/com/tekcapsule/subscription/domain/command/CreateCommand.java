@@ -1,10 +1,8 @@
 package com.tekcapsule.subscription.domain.command;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.tekcapsule.core.domain.Command;
 import com.tekcapsule.subscription.domain.model.*;
-import in.devstream.core.domain.Command;
-import in.devstream.mentor.domain.model.*;
-import in.tekcapsule.capsule.domain.model.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,7 +11,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
-public class CreateCommand extends Command  {
+public class CreateCommand extends Command {
     private Name name;
     private Gender gender;
     private String tenantId;

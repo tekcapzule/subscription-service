@@ -25,13 +25,13 @@
     <distributionManagement>
         <repository>
             <id>central</id>
-            <name>a0xwr7iq7kags-artifactory-primary-0-releases</name>
-            <url>https://devstream.jfrog.io/artifactory/maven-virtual-snapshot</url>
+            <name>a0flbhxxo3d71-artifactory-primary-0-releases</name>
+            <url>https://tekcapsule.jfrog.io/artifactory/tekcapsule-maven-local</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
-            <name>a0xwr7iq7kags-artifactory-primary-0-snapshots</name>
-            <url>https://devstream.jfrog.io/artifactory/maven-virtual-snapshot</url>
+            <name>a0flbhxxo3d71-artifactory-primary-0-snapshots</name>
+            <url>https://tekcapsule.jfrog.io/artifactory/tekcapsule-maven-local</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
