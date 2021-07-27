@@ -9,5 +9,4 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 public class SearchQuery extends Query {
-    private String tenantId;
 }

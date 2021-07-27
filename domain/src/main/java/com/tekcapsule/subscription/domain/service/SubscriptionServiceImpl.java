@@ -1,14 +1,11 @@
 package com.tekcapsule.subscription.domain.service;
 
-import com.tekcapsule.subscription.domain.command.UpdateCommand;
-import com.tekcapsule.subscription.domain.model.DateOfBirth;
-import com.tekcapsule.subscription.domain.model.Mentor;
-import com.tekcapsule.subscription.domain.model.Name;
+import com.tekcapsule.subscription.domain.command.UnsubscribeCommand;
+import com.tekcapsule.subscription.domain.model.Subscription;
 import com.tekcapsule.subscription.domain.query.SearchItem;
 import com.tekcapsule.subscription.domain.query.SearchQuery;
 import com.tekcapsule.subscription.domain.repository.SubscriptionDynamoRepository;
-import com.tekcapsule.subscription.domain.command.CreateCommand;
-import com.tekcapsule.subscription.domain.command.DisableCommand;
+import com.tekcapsule.subscription.domain.command.SubscribeCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -28,72 +25,46 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public Mentor create(CreateCommand createCommand) {
+    public Subscription create(SubscribeCommand subscribeCommand) {
 
-        log.info(String.format("Entering create mentor service - Tenant Id:{0}, Name:{1}", createCommand.getTenantId(), createCommand.getName().toString()));
+        log.info(String.format("Entering create mentor service - Tenant Id:{0}, Name:{1}", subscribeCommand.getTenantId(), subscribeCommand.getName().toString()));
 
-        Name name = createCommand.getName();
+        Name name = subscribeCommand.getName();
         if (name != null) {
             name.setDisplayName(String.format("{0} {1}", name.getFirstName(), name.getLastName()));
         }
-        DateOfBirth dateOfBirth = createCommand.getDateOfBirth();
+        DateOfBirth dateOfBirth = subscribeCommand.getDateOfBirth();
         if (dateOfBirth != null) {
             dateOfBirth.setDateOfBirth(String.format("{0}/{1}/{2}", dateOfBirth.getDay(), dateOfBirth.getMonth(), dateOfBirth.getYear()));
         }
-        Mentor mentor = Mentor.builder()
+        Subscription subscription = Subscription.builder()
                 .active(true)
                 .activeSince(DateTime.now(DateTimeZone.UTC).toString())
                 .blocked(false)
-                .awards(createCommand.getAwards())
-                .certifications(createCommand.getCertifications())
-                .contact(createCommand.getContact())
+                .awards(subscribeCommand.getAwards())
+                .certifications(subscribeCommand.getCertifications())
+                .contact(subscribeCommand.getContact())
                 .dateOfBirth(dateOfBirth)
-                .educationalQualifications(createCommand.getEducationalQualifications())
-                .headLine(createCommand.getHeadLine())
+                .educationalQualifications(subscribeCommand.getEducationalQualifications())
+                .headLine(subscribeCommand.getHeadLine())
                 .name(name)
-                .professionalExperiences(createCommand.getProfessionalExperiences())
-                .publications(createCommand.getPublications())
-                .social(createCommand.getSocial())
-                .tags(createCommand.getTags())
-                .tenantId(createCommand.getTenantId())
-                .userId(createCommand.getContact().getEmailId())
+                .professionalExperiences(subscribeCommand.getProfessionalExperiences())
+                .publications(subscribeCommand.getPublications())
+                .social(subscribeCommand.getSocial())
+                .tags(subscribeCommand.getTags())
+                .tenantId(subscribeCommand.getTenantId())
+                .userId(subscribeCommand.getContact().getEmailId())
                 .build();
 
-        mentor.setAddedOn(createCommand.getExecOn());
-        mentor.setUpdatedOn(createCommand.getExecOn());
-        mentor.setAddedBy(createCommand.getExecBy().getUserId());
+        subscription.setAddedOn(subscribeCommand.getExecOn());
+        subscription.setUpdatedOn(subscribeCommand.getExecOn());
+        subscription.setAddedBy(subscribeCommand.getExecBy().getUserId());
 
-        return mentorRepository.save(mentor);
+        return mentorRepository.save(subscription);
     }
 
     @Override
-    public Mentor update(UpdateCommand updateCommand) {
-
-        log.info(String.format("Entering update mentor service - Tenant Id:{0}, User Id:{1}", updateCommand.getTenantId(), updateCommand.getUserId()));
-
-        Mentor mentor = mentorRepository.findBy(updateCommand.getTenantId(), updateCommand.getUserId());
-        if (mentor != null) {
-            mentor.setAwards(updateCommand.getAwards());
-            mentor.setHeadLine(updateCommand.getHeadLine());
-            mentor.setContact(updateCommand.getContact());
-            mentor.setCertifications(updateCommand.getCertifications());
-            mentor.setPhotoUrl(updateCommand.getPhotoUrl());
-            mentor.setTags(updateCommand.getTags());
-            mentor.setSocial(updateCommand.getSocial());
-            mentor.setEducationalQualifications(updateCommand.getEducationalQualifications());
-            mentor.setProfessionalExperiences(updateCommand.getProfessionalExperiences());
-            mentor.setPublications(updateCommand.getPublications());
-
-            mentor.setUpdatedOn(updateCommand.getExecOn());
-            mentor.setUpdatedBy(updateCommand.getExecBy().getUserId());
-
-            mentorRepository.save(mentor);
-        }
-        return mentor;
-    }
-
-    @Override
-    public void disable(DisableCommand disableCommand) {
+    public void disable(UnsubscribeCommand unsubscribeCommand) {
 
         log.info(String.format("Entering disable mentor service - Tenant Id:{0}, User Id:{1}", disableCommand.getTenantId(), disableCommand.getUserId()));
 
@@ -109,7 +80,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public Mentor get(String tenantId, String userId) {
+    public Subscription get(String tenantId, String userId) {
 
         log.info(String.format("Entering get mentor service - Tenant Id:{0}, User Id:{1}", tenantId, userId));
 

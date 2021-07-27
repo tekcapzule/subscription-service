@@ -11,12 +11,14 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
-public class UpdateCommand extends Command {
+public class SubscribeCommand extends Command {
+    private Name name;
+    private Gender gender;
     private String tenantId;
-    private String userId;
     private String headLine;
     private Contact contact;
     private String photoUrl;
+    private DateOfBirth dateOfBirth;
     private List<String> tags;
     List<ProfessionalExperience> professionalExperiences;
     List<EducationalQualification> educationalQualifications;

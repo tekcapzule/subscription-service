@@ -11,14 +11,12 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
-public class CreateCommand extends Command {
-    private Name name;
-    private Gender gender;
+public class UnsubscribeCommand extends Command {
     private String tenantId;
+    private String userId;
     private String headLine;
     private Contact contact;
     private String photoUrl;
-    private DateOfBirth dateOfBirth;
     private List<String> tags;
     List<ProfessionalExperience> professionalExperiences;
     List<EducationalQualification> educationalQualifications;

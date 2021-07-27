@@ -3,7 +3,7 @@ package com.tekcapsule.subscription.domain.repository;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.tekcapsule.subscription.domain.query.SearchItem;
-import com.tekcapsule.subscription.domain.model.Mentor;
+import com.tekcapsule.subscription.domain.model.Subscription;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,59 +24,59 @@ public class SubscriptionRepositoryImpl implements SubscriptionDynamoRepository 
     }
 
     @Override
-    public List<Mentor> findAll(String tenantId) {
+    public List<Subscription> findAll(String tenantId) {
 
-        Mentor hashKey = Mentor.builder().tenantId(tenantId).build();
-        DynamoDBQueryExpression<Mentor> queryExpression = new DynamoDBQueryExpression<Mentor>()
+        Subscription hashKey = Subscription.builder().tenantId(tenantId).build();
+        DynamoDBQueryExpression<Subscription> queryExpression = new DynamoDBQueryExpression<Subscription>()
                 .withHashKeyValues(hashKey);
 
-        return dynamo.query(Mentor.class, queryExpression);
+        return dynamo.query(Subscription.class, queryExpression);
     }
 
     @Override
-    public Mentor findBy(String tenantId, String userId) {
-        return dynamo.load(Mentor.class, tenantId, userId);
+    public Subscription findBy(String tenantId, String userId) {
+        return dynamo.load(Subscription.class, tenantId, userId);
     }
 
     @Override
-    public Mentor save(Mentor mentor) {
-        dynamo.save(mentor);
-        return mentor;
+    public Subscription save(Subscription subscription) {
+        dynamo.save(subscription);
+        return subscription;
     }
 
     @Override
     public void delete(String tenantId, String id) {
-        Mentor mentor = findBy(tenantId, id);
-        if (mentor != null) {
-            dynamo.delete(mentor);
+        Subscription subscription = findBy(tenantId, id);
+        if (subscription != null) {
+            dynamo.delete(subscription);
         }
     }
 
     @Override
     public void disableById(String tenantId, String id) {
-        Mentor mentor = findBy(tenantId, id);
-        if (mentor != null) {
-            mentor.setActive(false);
-            dynamo.save(mentor);
+        Subscription subscription = findBy(tenantId, id);
+        if (subscription != null) {
+            subscription.setActive(false);
+            dynamo.save(subscription);
         }
     }
 
     @Override
     public List<SearchItem> search(String tenantId) {
-        Mentor hashKey = Mentor.builder().tenantId(tenantId).build();
-        DynamoDBQueryExpression<Mentor> queryExpression = new DynamoDBQueryExpression<Mentor>()
+        Subscription hashKey = Subscription.builder().tenantId(tenantId).build();
+        DynamoDBQueryExpression<Subscription> queryExpression = new DynamoDBQueryExpression<Subscription>()
                 .withHashKeyValues(hashKey);
-        List<Mentor> mentors = dynamo.query(Mentor.class, queryExpression);
+        List<Subscription> subscriptions = dynamo.query(Subscription.class, queryExpression);
         List<SearchItem> searchItems = new ArrayList<SearchItem>();
-        if (mentors != null) {
-            searchItems = mentors.stream().map(mentor -> {
+        if (subscriptions != null) {
+            searchItems = subscriptions.stream().map(subscription -> {
                 return SearchItem.builder()
-                        .activeSince(mentor.getActiveSince())
-                        .headLine(mentor.getHeadLine())
-                        .name(mentor.getName())
-                        .photoUrl(mentor.getPhotoUrl())
-                        .rating(mentor.getRating())
-                        .social(mentor.getSocial())
+                        .activeSince(subscription.getActiveSince())
+                        .headLine(subscription.getHeadLine())
+                        .name(subscription.getName())
+                        .photoUrl(subscription.getPhotoUrl())
+                        .rating(subscription.getRating())
+                        .social(subscription.getSocial())
                         .build();
             }).collect(Collectors.toList());
         }
