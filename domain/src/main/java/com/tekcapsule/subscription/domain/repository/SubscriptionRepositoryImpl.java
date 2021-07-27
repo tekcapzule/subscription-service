@@ -24,9 +24,9 @@ public class SubscriptionRepositoryImpl implements SubscriptionDynamoRepository 
     }
 
     @Override
-    public List<Subscription> findAll(String tenantId) {
+    public List<Subscription> findAll(String emailId) {
 
-        Subscription hashKey = Subscription.builder().tenantId(tenantId).build();
+        Subscription hashKey = Subscription.builder().emailId(emailId).build();
         DynamoDBQueryExpression<Subscription> queryExpression = new DynamoDBQueryExpression<Subscription>()
                 .withHashKeyValues(hashKey);
 
@@ -34,8 +34,8 @@ public class SubscriptionRepositoryImpl implements SubscriptionDynamoRepository 
     }
 
     @Override
-    public Subscription findBy(String tenantId, String userId) {
-        return dynamo.load(Subscription.class, tenantId, userId);
+    public Subscription findBy(String emailId) {
+        return dynamo.load(Subscription.class, emailId);
     }
 
     @Override
@@ -45,16 +45,16 @@ public class SubscriptionRepositoryImpl implements SubscriptionDynamoRepository 
     }
 
     @Override
-    public void delete(String tenantId, String id) {
-        Subscription subscription = findBy(tenantId, id);
+    public void delete(String id) {
+        Subscription subscription = findBy(id);
         if (subscription != null) {
             dynamo.delete(subscription);
         }
     }
 
     @Override
-    public void disableById(String tenantId, String id) {
-        Subscription subscription = findBy(tenantId, id);
+    public void disableById( String id) {
+        Subscription subscription = findBy(id);
         if (subscription != null) {
             subscription.setActive(false);
             dynamo.save(subscription);
@@ -62,7 +62,7 @@ public class SubscriptionRepositoryImpl implements SubscriptionDynamoRepository 
     }
 
     @Override
-    public List<SearchItem> search(String tenantId) {
+    public List<SearchItem> search() {
         Subscription hashKey = Subscription.builder().tenantId(tenantId).build();
         DynamoDBQueryExpression<Subscription> queryExpression = new DynamoDBQueryExpression<Subscription>()
                 .withHashKeyValues(hashKey);

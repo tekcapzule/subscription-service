@@ -9,8 +9,6 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 public class SearchItem implements ValueObject {
-    private String photoUrl;
-    private String headLine;
+    private String emailId;
     private String activeSince;
-    private int rating;
 }
