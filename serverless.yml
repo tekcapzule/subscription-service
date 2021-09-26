@@ -33,14 +33,14 @@ functions:
           method: post
     environment:
       SPRING_CLOUD_FUNCTION_DEFINITION: unsubscribeFunction
-  getSubscriptionCount:
+  findAllSubscriptions:
     handler: org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler
     events:
       - http:
-          path: subscription/count
+          path: subscription/findall
           method: get
     environment:
-      SPRING_CLOUD_FUNCTION_DEFINITION: getSubscriptionCountFunction
+      SPRING_CLOUD_FUNCTION_DEFINITION: findAllSubscriptionFunction
 
 resources:
   Resources:
