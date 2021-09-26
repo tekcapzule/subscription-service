@@ -1,8 +1,11 @@
 package com.tekcapsule.subscription.application.function;
 
+import com.tekcapsule.core.domain.Origin;
+import com.tekcapsule.core.utils.HeaderUtil;
 import com.tekcapsule.subscription.application.config.AppConstants;
 import com.tekcapsule.subscription.application.function.input.UnSubscribeInput;
 import com.tekcapsule.subscription.application.mapper.InputOutputMapper;
+import com.tekcapsule.subscription.domain.command.UnsubscribeCommand;
 import com.tekcapsule.subscription.domain.service.SubscriptionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,16 +28,16 @@ public class UnSubscribeFunction implements Function<Message<UnSubscribeInput>, 
 
 
     @Override
-    public Message<Void> apply(Message<UnSubscribeInput> disableInputMessage) {
+    public Message<Void> apply(Message<UnSubscribeInput> unSubscribeInputMessage) {
 
-        UnSubscribeInput unSubscribeInput = disableInputMessage.getPayload();
+        UnSubscribeInput unSubscribeInput = unSubscribeInputMessage.getPayload();
 
-        log.info(String.format("Entering disable mentor Function - Tenant Id:{0}, User Id:{1}", unSubscribeInput.getTenantId(), unSubscribeInput.getUserId()));
+        log.info(String.format("Entering unsubscribe Function - Email Id:{1}", unSubscribeInput.getEmailId()));
 
-        Origin origin = HeaderUtil.buildOriginFromHeaders(disableInputMessage.getHeaders());
+        Origin origin = HeaderUtil.buildOriginFromHeaders(unSubscribeInputMessage.getHeaders());
 
-        DisableCommand disableCommand = InputOutputMapper.buildDisableCommandFromDisableInput.apply(unSubscribeInput, origin);
-        mentorService.disable(disableCommand);
+        UnsubscribeCommand unsubscribeCommand = InputOutputMapper.buildUnSubscribeCommandFromUnSubscribeInput.apply(unSubscribeInput, origin);
+        subscriptionService.unsubscribe(unsubscribeCommand);
         Map<String, Object> responseHeader = new HashMap();
         responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
 

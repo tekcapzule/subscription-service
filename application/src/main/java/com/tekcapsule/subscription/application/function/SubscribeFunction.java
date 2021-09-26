@@ -1,7 +1,11 @@
 package com.tekcapsule.subscription.application.function;
 
+import com.tekcapsule.core.domain.Origin;
+import com.tekcapsule.core.utils.HeaderUtil;
 import com.tekcapsule.subscription.application.config.AppConstants;
 import com.tekcapsule.subscription.application.function.input.SubscribeInput;
+import com.tekcapsule.subscription.domain.command.SubscribeCommand;
+import com.tekcapsule.subscription.domain.model.Subscription;
 import com.tekcapsule.subscription.domain.service.SubscriptionService;
 import com.tekcapsule.subscription.application.mapper.InputOutputMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +20,7 @@ import java.util.function.Function;
 
 @Component
 @Slf4j
-public class SubscribeFunction implements Function<Message<SubscribeInput>, Message<Mentor>> {
+public class SubscribeFunction implements Function<Message<SubscribeInput>, Message<Subscription>> {
 
     private final SubscriptionService subscriptionService;
 
@@ -26,19 +30,19 @@ public class SubscribeFunction implements Function<Message<SubscribeInput>, Mess
 
 
     @Override
-    public Message<Mentor> apply(Message<SubscribeInput> createInputMessage) {
+    public Message<Subscription> apply(Message<SubscribeInput> subscribeInputMessage) {
 
-        SubscribeInput subscribeInput = createInputMessage.getPayload();
+        SubscribeInput subscribeInput = subscribeInputMessage.getPayload();
 
-        log.info(String.format("Entering create mentor Function - Tenant Id:{0}, Name:{1}", subscribeInput.getTenantId(), subscribeInput.getName().toString()));
+        log.info(String.format("Entering subscribe Function - Email Id:{0}", subscribeInput.getEmailId()));
 
-        Origin origin = HeaderUtil.buildOriginFromHeaders(createInputMessage.getHeaders());
+        Origin origin = HeaderUtil.buildOriginFromHeaders(subscribeInputMessage.getHeaders());
 
-        CreateCommand createCommand = InputOutputMapper.buildCreateCommandFromCreateInput.apply(subscribeInput, origin);
-        Mentor mentor = mentorService.create(createCommand);
+        SubscribeCommand subscribeCommand = InputOutputMapper.buildSubscribeCommandFromSubscribeInput.apply(subscribeInput, origin);
+        Subscription subscription = subscriptionService.subscribe(subscribeCommand);
         Map<String, Object> responseHeader = new HashMap();
         responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
 
-        return new GenericMessage(mentor, responseHeader);
+        return new GenericMessage(subscription, responseHeader);
     }
 }
