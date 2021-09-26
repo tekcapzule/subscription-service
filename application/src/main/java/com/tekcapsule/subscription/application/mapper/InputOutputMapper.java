@@ -1,13 +1,12 @@
 package com.tekcapsule.subscription.application.mapper;
 
+import com.tekcapsule.core.domain.Command;
+import com.tekcapsule.core.domain.ExecBy;
+import com.tekcapsule.core.domain.Origin;
 import com.tekcapsule.subscription.application.function.input.SubscribeInput;
 import com.tekcapsule.subscription.application.function.input.UnSubscribeInput;
-import in.devstream.core.domain.Command;
-import in.devstream.core.domain.ExecBy;
-import in.devstream.core.domain.Origin;
-import in.devstream.mentor.domain.command.CreateCommand;
-import in.devstream.mentor.domain.command.DisableCommand;
-import in.devstream.mentor.domain.command.UpdateCommand;
+import com.tekcapsule.subscription.domain.command.SubscribeCommand;
+import com.tekcapsule.subscription.domain.command.UnsubscribeCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
@@ -29,25 +28,18 @@ public final class InputOutputMapper {
         return command;
     };
 
-    public static final BiFunction<SubscribeInput, Origin, CreateCommand> buildCreateCommandFromCreateInput = (subscribeInput, origin) -> {
-        CreateCommand createCommand =  CreateCommand.builder().build();
-        BeanUtils.copyProperties(subscribeInput, createCommand);
-        addOrigin.apply(createCommand, origin);
-        return createCommand;
+    public static final BiFunction<SubscribeInput, Origin, SubscribeCommand> buildSubscribeCommandFromSubscribeInput = (subscribeInput, origin) -> {
+        SubscribeCommand subscribeCommand =  SubscribeCommand.builder().build();
+        BeanUtils.copyProperties(subscribeInput, subscribeCommand);
+        addOrigin.apply(subscribeCommand, origin);
+        return subscribeCommand;
     };
 
-    public static final BiFunction<UpdateInput, Origin, UpdateCommand> buildUpdateCommandFromUpdateInput = (updateInput, origin) -> {
-        UpdateCommand updateCommand = UpdateCommand.builder().build();
-        BeanUtils.copyProperties(updateInput, updateCommand);
-        addOrigin.apply(updateCommand, origin);
-        return updateCommand;
-    };
-
-    public static final BiFunction<UnSubscribeInput, Origin, DisableCommand> buildDisableCommandFromDisableInput = (unSubscribeInput, origin) -> {
-        DisableCommand disableCommand =  DisableCommand.builder().build();
-        BeanUtils.copyProperties(unSubscribeInput, disableCommand);
-        addOrigin.apply(disableCommand, origin);
-        return disableCommand;
+    public static final BiFunction<UnSubscribeInput, Origin, UnsubscribeCommand> buildUnSubscribeCommandFromUnSubscribeInput = (unSubscribeInput, origin) -> {
+        UnsubscribeCommand unsubscribeCommand =  UnsubscribeCommand.builder().build();
+        BeanUtils.copyProperties(unSubscribeInput, unsubscribeCommand);
+        addOrigin.apply(unsubscribeCommand, origin);
+        return unsubscribeCommand;
     };
 
 }

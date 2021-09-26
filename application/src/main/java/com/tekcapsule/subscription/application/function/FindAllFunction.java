@@ -1,9 +1,6 @@
 package com.tekcapsule.subscription.application.function;
 
 import com.tekcapsule.subscription.application.config.AppConstants;
-import in.devstream.mentor.domain.query.SearchItem;
-import in.devstream.mentor.domain.query.SearchQuery;
-import in.devstream.mentor.domain.service.MentorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.Message;

@@ -1,11 +1,11 @@
 package com.tekcapsule.subscription.domain.repository;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.tekcapsule.subscription.domain.model.Subscription;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -23,12 +23,12 @@ public class SubscriptionRepositoryImpl implements SubscriptionDynamoRepository 
 
     @Override
     public Subscription findBy(String emailId) {
-        throw new NotImplementedException();
+        return dynamo.load(Subscription.class, emailId);
     }
 
     @Override
     public List<Subscription> findAll() {
-        throw new NotImplementedException();
+        return dynamo.scan(Subscription.class,new DynamoDBScanExpression());
     }
 
     @Override

@@ -5,8 +5,6 @@ import com.tekcapsule.subscription.domain.model.Subscription;
 import com.tekcapsule.subscription.domain.repository.SubscriptionDynamoRepository;
 import com.tekcapsule.subscription.domain.command.SubscribeCommand;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +26,15 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         log.info(String.format("Entering subscribe service - Email Id :{1}", subscribeCommand.getEmailId()));
 
-        Subscription subscription = Subscription.builder()
-                .emailId(subscribeCommand.getEmailId())
-                .active(true)
-                .build();
-
+        Subscription subscription =subscriptionDynamoRepository.findBy(subscribeCommand.getEmailId());
+        if (subscription != null) {
+            subscription.setActive(true);
+        }else{
+             subscription = Subscription.builder()
+                    .emailId(subscribeCommand.getEmailId())
+                    .active(true)
+                    .build();
+        }
         subscription.setAddedOn(subscribeCommand.getExecOn());
         subscription.setUpdatedOn(subscribeCommand.getExecOn());
         subscription.setAddedBy(subscribeCommand.getExecBy().getUserId());
@@ -44,14 +46,23 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public void unsubscribe(UnsubscribeCommand unsubscribeCommand) {
 
-        log.info(String.format("Entering unsubscribe service mentor service - Tenant Id:{0}, User Id:{1}", disableCommand.getTenantId(), disableCommand.getUserId()));
+        log.info(String.format("Entering unsubscribe service - Email Id:{1}", unsubscribeCommand.getEmailId()));
 
-        subscriptionDynamoRepository.disableById(unsubscribeCommand.getTenantId(), unsubscribeCommand.getUserId());
+        Subscription subscription = subscriptionDynamoRepository.findBy(unsubscribeCommand.getEmailId());
+        if (subscription != null) {
+            subscription.setActive(false);
+
+            subscription.setUpdatedOn(unsubscribeCommand.getExecOn());
+            subscription.setUpdatedBy(unsubscribeCommand.getExecBy().getUserId());
+
+            subscriptionDynamoRepository.save(subscription);
+        }
     }
 
     @Override
     public List<Subscription> findAllSubscriptions() {
-        return null;
-    }
+        log.info(String.format("Entering findAll subscription service"));
+
+        return subscriptionDynamoRepository.findAll();    }
 
 }
