@@ -9,12 +9,14 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
-public class UpdateInput {
+public class SubscribeInput {
     private String tenantId;
-    private String userId;
+    private Name name;
+    private Gender gender;
     private String headLine;
     private Contact contact;
     private String photoUrl;
+    private DateOfBirth dateOfBirth;
     private List<String> tags;
     List<ProfessionalExperience> professionalExperiences;
     List<EducationalQualification> educationalQualifications;

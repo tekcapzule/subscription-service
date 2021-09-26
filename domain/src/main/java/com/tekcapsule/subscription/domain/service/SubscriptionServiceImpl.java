@@ -2,8 +2,6 @@ package com.tekcapsule.subscription.domain.service;
 
 import com.tekcapsule.subscription.domain.command.UnsubscribeCommand;
 import com.tekcapsule.subscription.domain.model.Subscription;
-import com.tekcapsule.subscription.domain.query.SearchItem;
-import com.tekcapsule.subscription.domain.query.SearchQuery;
 import com.tekcapsule.subscription.domain.repository.SubscriptionDynamoRepository;
 import com.tekcapsule.subscription.domain.command.SubscribeCommand;
 import lombok.extern.slf4j.Slf4j;
@@ -28,36 +26,32 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Subscription subscribe(SubscribeCommand subscribeCommand) {
 
-        log.info(String.format("Entering create mentor service - Tenant Id:{0}, Name:{1}", subscribeCommand.getTenantId(), subscribeCommand.getName().toString()));
+        log.info(String.format("Entering subscribe service - Email Id :{1}", subscribeCommand.getEmailId()));
 
-        if (subscribeCommand.get != null) {
-            dateOfBirth.setDateOfBirth(String.format("{0}/{1}/{2}", dateOfBirth.getDay(), dateOfBirth.getMonth(), dateOfBirth.getYear()));
-        }
         Subscription subscription = Subscription.builder()
+                .emailId(subscribeCommand.getEmailId())
                 .active(true)
-                .activeSince(DateTime.now(DateTimeZone.UTC).toString())
                 .build();
 
         subscription.setAddedOn(subscribeCommand.getExecOn());
         subscription.setUpdatedOn(subscribeCommand.getExecOn());
         subscription.setAddedBy(subscribeCommand.getExecBy().getUserId());
+        subscription.setUpdatedBy(subscribeCommand.getExecBy().getUserId());
 
-        return mentorRepository.save(subscription);
+        return subscriptionDynamoRepository.save(subscription);
     }
 
     @Override
     public void unsubscribe(UnsubscribeCommand unsubscribeCommand) {
 
-        log.info(String.format("Entering disable mentor service - Tenant Id:{0}, User Id:{1}", disableCommand.getTenantId(), disableCommand.getUserId()));
+        log.info(String.format("Entering unsubscribe service mentor service - Tenant Id:{0}, User Id:{1}", disableCommand.getTenantId(), disableCommand.getUserId()));
 
         subscriptionDynamoRepository.disableById(unsubscribeCommand.getTenantId(), unsubscribeCommand.getUserId());
     }
 
     @Override
-    public Subscription getSubscriptionCount(String tenantId, String userId) {
-
-        log.info(String.format("Entering get mentor service - Tenant Id:{0}, User Id:{1}", tenantId, userId));
-
-        return mentorRepository.findBy(tenantId, userId);
+    public List<Subscription> findAllSubscriptions() {
+        return null;
     }
+
 }

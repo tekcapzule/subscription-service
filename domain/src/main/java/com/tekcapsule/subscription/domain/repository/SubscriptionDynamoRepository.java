@@ -5,6 +5,4 @@ import com.tekcapsule.subscription.domain.model.Subscription;
 
 
 public interface SubscriptionDynamoRepository extends CrudRepository<Subscription, String> {
-
-    void disableById( String id);
 }

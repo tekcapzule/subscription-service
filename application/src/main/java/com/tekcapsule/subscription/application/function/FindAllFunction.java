@@ -1,7 +1,6 @@
 package com.tekcapsule.subscription.application.function;
 
 import com.tekcapsule.subscription.application.config.AppConstants;
-import com.tekcapsule.subscription.application.function.input.SearchInput;
 import in.devstream.mentor.domain.query.SearchItem;
 import in.devstream.mentor.domain.query.SearchQuery;
 import in.devstream.mentor.domain.service.MentorService;
@@ -19,11 +18,11 @@ import java.util.function.Function;
 
 @Component
 @Slf4j
-public class SearchFunction implements Function<Message<SearchInput>, Message<List<SearchItem>>> {
+public class FindAllFunction implements Function<Message<SearchInput>, Message<List<SearchItem>>> {
 
     private final MentorService mentorService;
 
-    public SearchFunction(final MentorService mentorService) {
+    public FindAllFunction(final MentorService mentorService) {
         this.mentorService = mentorService;
     }
 

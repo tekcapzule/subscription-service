@@ -1,8 +1,6 @@
 package com.tekcapsule.subscription.domain.repository;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-import com.tekcapsule.subscription.domain.query.SearchItem;
 import com.tekcapsule.subscription.domain.model.Subscription;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,20 +37,4 @@ public class SubscriptionRepositoryImpl implements SubscriptionDynamoRepository 
         return subscription;
     }
 
-    @Override
-    public void delete(String id) {
-        Subscription subscription = findBy(id);
-        if (subscription != null) {
-            dynamo.delete(subscription);
-        }
-    }
-
-    @Override
-    public void disableById( String id) {
-        Subscription subscription = findBy(id);
-        if (subscription != null) {
-            subscription.setActive(false);
-            dynamo.save(subscription);
-        }
-    }
 }

@@ -1,8 +1,7 @@
 package com.tekcapsule.subscription.application.mapper;
 
-import com.tekcapsule.subscription.application.function.input.CreateInput;
-import com.tekcapsule.subscription.application.function.input.DisableInput;
-import com.tekcapsule.subscription.application.function.input.UpdateInput;
+import com.tekcapsule.subscription.application.function.input.SubscribeInput;
+import com.tekcapsule.subscription.application.function.input.UnSubscribeInput;
 import in.devstream.core.domain.Command;
 import in.devstream.core.domain.ExecBy;
 import in.devstream.core.domain.Origin;
@@ -30,9 +29,9 @@ public final class InputOutputMapper {
         return command;
     };
 
-    public static final BiFunction<CreateInput, Origin, CreateCommand> buildCreateCommandFromCreateInput = (createInput, origin) -> {
+    public static final BiFunction<SubscribeInput, Origin, CreateCommand> buildCreateCommandFromCreateInput = (subscribeInput, origin) -> {
         CreateCommand createCommand =  CreateCommand.builder().build();
-        BeanUtils.copyProperties(createInput, createCommand);
+        BeanUtils.copyProperties(subscribeInput, createCommand);
         addOrigin.apply(createCommand, origin);
         return createCommand;
     };
@@ -44,9 +43,9 @@ public final class InputOutputMapper {
         return updateCommand;
     };
 
-    public static final BiFunction<DisableInput, Origin, DisableCommand> buildDisableCommandFromDisableInput = (disableInput, origin) -> {
+    public static final BiFunction<UnSubscribeInput, Origin, DisableCommand> buildDisableCommandFromDisableInput = (unSubscribeInput, origin) -> {
         DisableCommand disableCommand =  DisableCommand.builder().build();
-        BeanUtils.copyProperties(disableInput, disableCommand);
+        BeanUtils.copyProperties(unSubscribeInput, disableCommand);
         addOrigin.apply(disableCommand, origin);
         return disableCommand;
     };

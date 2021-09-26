@@ -1,7 +1,6 @@
 package com.tekcapsule.subscription.domain.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tekcapsule.core.domain.AggregateRoot;
@@ -17,10 +16,8 @@ import lombok.*;
 @NoArgsConstructor
 public class Subscription extends BaseDomainEntity<String> implements AggregateRoot {
 
-    @DynamoDBHashKey(attributeName="emailId")
+    @DynamoDBAttribute(attributeName="emailId")
     private String emailId;
     @DynamoDBAttribute(attributeName="active")
-    private Boolean active;
-    @DynamoDBAttribute(attributeName="activeSince")
-    private String activeSince;
+    private boolean active;
 }

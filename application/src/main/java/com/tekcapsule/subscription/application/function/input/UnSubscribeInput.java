@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
-public class DisableInput {
+public class UnSubscribeInput {
     private String tenantId;
     private String userId;
 }
