@@ -40,15 +40,7 @@ functions:
           path: subscription/count
           method: get
     environment:
-      SPRING_CLOUD_FUNCTION_DEFINITION: getCountFunction
-  searchSubscription:
-    handler: org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler
-    events:
-      - http:
-          path: subscription/search
-          method: post
-    environment:
-      SPRING_CLOUD_FUNCTION_DEFINITION: searchFunction
+      SPRING_CLOUD_FUNCTION_DEFINITION: getSubscriptionCountFunction
 
 resources:
   Resources:
