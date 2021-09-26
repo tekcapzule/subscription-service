@@ -1,6 +1,8 @@
 package com.tekcapsule.subscription.application.function;
 
 import com.tekcapsule.subscription.application.config.AppConstants;
+import com.tekcapsule.subscription.domain.model.Subscription;
+import com.tekcapsule.subscription.domain.service.SubscriptionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.Message;
@@ -15,25 +17,24 @@ import java.util.function.Function;
 
 @Component
 @Slf4j
-public class FindAllFunction implements Function<Message<SearchInput>, Message<List<SearchItem>>> {
+public class FindAllFunction implements Function<Message<Void>, Message<List<Subscription>>> {
 
-    private final MentorService mentorService;
+    private final SubscriptionService subscriptionService;
 
-    public FindAllFunction(final MentorService mentorService) {
-        this.mentorService = mentorService;
+    public FindAllFunction(final SubscriptionService subscriptionService) {
+        this.subscriptionService = subscriptionService;
     }
 
 
     @Override
-    public Message<List<SearchItem>> apply(Message<SearchInput> searchInputMessage) {
-        SearchInput searchInput = searchInputMessage.getPayload();
+    public Message<List<Subscription>> apply(Message<Void>  findAllInputMessage) {
 
-        log.info(String.format("Entering search mentor Function - Tenant Id:{0}", searchInput.getTenantId()));
+        log.info("Entering findAllSubscription Function");
 
-        List<SearchItem> searchItems = mentorService.search(SearchQuery.builder().tenantId(searchInput.getTenantId()).build());
+        List<Subscription> subscriptions = subscriptionService.findAllSubscriptions();
         Map<String, Object> responseHeader = new HashMap();
         responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
 
-        return new GenericMessage(searchItems, responseHeader);
+        return new GenericMessage(subscriptions, responseHeader);
     }
 }
