@@ -21,5 +21,6 @@ public class Subscription extends BaseDomainEntity<String> implements AggregateR
     private String emailId;
     @DynamoDBAttribute(attributeName="active")
     private boolean active;
-
+    @DynamoDBAttribute(attributeName="channel")
+    private Channel channel;
 }
