@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tekcapsule.core.domain.AggregateRoot;
 import com.tekcapsule.core.domain.BaseDomainEntity;
+import com.tekcapsule.core.domain.SourceSystem;
 import lombok.*;
 
 @Data
@@ -22,5 +23,5 @@ public class Subscription extends BaseDomainEntity<String> implements AggregateR
     @DynamoDBAttribute(attributeName="active")
     private boolean active;
     @DynamoDBAttribute(attributeName="channel")
-    private Channel channel;
+    private SourceSystem channel;
 }
