@@ -32,6 +32,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }else{
              subscription = Subscription.builder()
                     .emailId(subscribeCommand.getEmailId())
+                     .activeSince(subscribeCommand.getExecOn())
                     .active(true)
                     .build();
         }
@@ -51,18 +52,25 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription subscription = subscriptionDynamoRepository.findBy(unsubscribeCommand.getEmailId());
         if (subscription != null) {
             subscription.setActive(false);
-
             subscription.setUpdatedOn(unsubscribeCommand.getExecOn());
             subscription.setUpdatedBy(unsubscribeCommand.getExecBy().getUserId());
-
             subscriptionDynamoRepository.save(subscription);
         }
     }
 
     @Override
     public List<Subscription> findAllSubscriptions() {
+
         log.info(String.format("Entering findAll subscription service"));
 
         return subscriptionDynamoRepository.findAll();    }
+
+
+    @Override
+    public Subscription findBy(String emailId) {
+
+        log.info(String.format("Entering findBy subscription service - Email Id:{0}",emailId));
+
+        return subscriptionDynamoRepository.findBy(emailId);    }
 
 }
