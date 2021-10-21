@@ -29,7 +29,7 @@ public class GetFunction implements Function<Message<GetInput>, Message<Subscrip
 
         GetInput getInput = findByInputMessage.getPayload();
 
-        log.info("Entering find by subscription Function Email Id:{0}",getInput.getEmailId());
+        log.info("Entering get subscription Function Email Id:{0}",getInput.getEmailId());
 
         Subscription subscription = subscriptionService.findBy(getInput.getEmailId());
         Map<String, Object> responseHeader = new HashMap();

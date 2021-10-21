@@ -28,7 +28,7 @@ public class GetAllFunction implements Function<Message<Void>, Message<List<Subs
     @Override
     public Message<List<Subscription>> apply(Message<Void>  findAllInputMessage) {
 
-        log.info("Entering find all subscription Function");
+        log.info("Entering get all subscription Function");
 
         List<Subscription> subscriptions = subscriptionService.findAllSubscriptions();
         Map<String, Object> responseHeader = new HashMap();
