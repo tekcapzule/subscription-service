@@ -2,6 +2,7 @@ package com.tekcapsule.subscription.domain.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tekcapsule.core.domain.AggregateRoot;
@@ -20,7 +21,7 @@ public class Subscription extends BaseDomainEntity<String> implements AggregateR
 
     @DynamoDBHashKey(attributeName="emailId")
     private String emailId;
-    @DynamoDBAttribute(attributeName="active")
+    @DynamoDBRangeKey(attributeName="active")
     private boolean active;
     @DynamoDBAttribute(attributeName="channel")
     private SourceSystem channel;

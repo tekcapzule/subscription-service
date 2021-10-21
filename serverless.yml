@@ -41,6 +41,14 @@ functions:
           method: get
     environment:
       SPRING_CLOUD_FUNCTION_DEFINITION: findAllSubscriptionFunction
+  findBySubscriptionId:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler
+    events:
+      - http:
+          path: subscription/findBy
+          method: get
+    environment:
+      SPRING_CLOUD_FUNCTION_DEFINITION: findByFunction
 
 resources:
   Resources:
@@ -51,9 +59,13 @@ resources:
         AttributeDefinitions:
           - AttributeName: emailId
             AttributeType: S
+          - AttributeName: active
+            AttributeType: B
         KeySchema:
           - AttributeName: emailId
             KeyType: HASH
+          - AttributeName: active
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
