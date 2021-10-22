@@ -52,7 +52,7 @@ functions:
 
 resources:
   Resources:
-    productsTable:
+    subscriptionTable:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: Subscription

@@ -34,7 +34,7 @@ public class SubscribeFunction implements Function<Message<SubscribeInput>, Mess
 
         SubscribeInput subscribeInput = subscribeInputMessage.getPayload();
 
-        log.info(String.format("Entering subscribe Function - Email Id:{0}", subscribeInput.getEmailId()));
+        log.info(String.format("Entering subscribe Function - Email Id:%S", subscribeInput.getEmailId()));
 
         Origin origin = HeaderUtil.buildOriginFromHeaders(subscribeInputMessage.getHeaders());
 
