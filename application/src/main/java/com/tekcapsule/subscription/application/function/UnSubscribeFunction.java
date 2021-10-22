@@ -38,7 +38,7 @@ public class UnSubscribeFunction implements Function<Message<UnSubscribeInput>, 
 
         UnsubscribeCommand unsubscribeCommand = InputOutputMapper.buildUnSubscribeCommandFromUnSubscribeInput.apply(unSubscribeInput, origin);
         subscriptionService.unsubscribe(unsubscribeCommand);
-        Map<String, Object> responseHeader = new HashMap();
+        Map<String, Object> responseHeader = new HashMap<>();
         responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
 
         return new GenericMessage( responseHeader);

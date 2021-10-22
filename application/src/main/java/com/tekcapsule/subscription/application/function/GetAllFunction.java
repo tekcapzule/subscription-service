@@ -31,9 +31,9 @@ public class GetAllFunction implements Function<Message<Void>, Message<List<Subs
         log.info("Entering get all subscription Function");
 
         List<Subscription> subscriptions = subscriptionService.findAllSubscriptions();
-        Map<String, Object> responseHeader = new HashMap();
+        Map<String, Object> responseHeader = new HashMap<>();
         responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
 
-        return new GenericMessage(subscriptions, responseHeader);
+        return new GenericMessage<>(subscriptions, responseHeader);
     }
 }

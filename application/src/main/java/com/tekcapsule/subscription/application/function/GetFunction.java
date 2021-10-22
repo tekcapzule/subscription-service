@@ -32,9 +32,9 @@ public class GetFunction implements Function<Message<GetInput>, Message<Subscrip
         log.info("Entering get subscription Function Email Id:%S",getInput.getEmailId());
 
         Subscription subscription = subscriptionService.findBy(getInput.getEmailId());
-        Map<String, Object> responseHeader = new HashMap();
+        Map<String, Object> responseHeader = new HashMap<>();
         responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
 
-        return new GenericMessage(subscription, responseHeader);
+        return new GenericMessage<>(subscription, responseHeader);
     }
 }

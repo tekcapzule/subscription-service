@@ -40,9 +40,9 @@ public class SubscribeFunction implements Function<Message<SubscribeInput>, Mess
 
         SubscribeCommand subscribeCommand = InputOutputMapper.buildSubscribeCommandFromSubscribeInput.apply(subscribeInput, origin);
         Subscription subscription = subscriptionService.subscribe(subscribeCommand);
-        Map<String, Object> responseHeader = new HashMap();
+        Map<String, Object> responseHeader = new HashMap<>();
         responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
 
-        return new GenericMessage(subscription, responseHeader);
+        return new GenericMessage<>(subscription, responseHeader);
     }
 }
