@@ -62,7 +62,7 @@ functions:
             schemas:
               application/json:
                 schema: ${file(api-gateway/getAll.json)}
-                name: GetAllModel
+                name: GetAllSubscriptionsModel
                 description: 'get all subscriptions model'
     environment:
       SPRING_CLOUD_FUNCTION_DEFINITION: getAllFunction
@@ -77,7 +77,7 @@ functions:
             schemas:
               application/json:
                 schema: ${file(api-gateway/get.json)}
-                name: GetModel
+                name: GetSubscriptionModel
                 description: 'get subscribe model'
     environment:
       SPRING_CLOUD_FUNCTION_DEFINITION: getFunction
