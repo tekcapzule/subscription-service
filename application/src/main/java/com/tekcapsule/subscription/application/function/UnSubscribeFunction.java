@@ -32,7 +32,7 @@ public class UnSubscribeFunction implements Function<Message<UnSubscribeInput>, 
 
         UnSubscribeInput unSubscribeInput = unSubscribeInputMessage.getPayload();
 
-        log.info(String.format("Entering unsubscribe Function - Email Id:%S", unSubscribeInput.getEmailId()));
+        log.info(String.format("Entering unsubscribe Function - Email Id:%s", unSubscribeInput.getEmailId()));
 
         Origin origin = HeaderUtil.buildOriginFromHeaders(unSubscribeInputMessage.getHeaders());
 

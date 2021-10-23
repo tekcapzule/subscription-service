@@ -1,5 +1,6 @@
 package com.tekcapsule.subscription.application.function;
 
+import com.tekcapsule.core.domain.EmptyFunctionInput;
 import com.tekcapsule.subscription.application.config.AppConstants;
 import com.tekcapsule.subscription.domain.model.Subscription;
 import com.tekcapsule.subscription.domain.service.SubscriptionService;
@@ -17,7 +18,7 @@ import java.util.function.Function;
 
 @Component
 @Slf4j
-public class GetAllFunction implements Function<Message<Void>, Message<List<Subscription>>> {
+public class GetAllFunction implements Function<Message<EmptyFunctionInput>, Message<List<Subscription>>> {
 
     private final SubscriptionService subscriptionService;
 
@@ -26,7 +27,7 @@ public class GetAllFunction implements Function<Message<Void>, Message<List<Subs
     }
 
     @Override
-    public Message<List<Subscription>> apply(Message<Void>  findAllInputMessage) {
+    public Message<List<Subscription>> apply(Message<EmptyFunctionInput>  findAllInputMessage) {
 
         log.info("Entering get all subscription Function");
 

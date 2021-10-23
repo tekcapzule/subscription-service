@@ -24,7 +24,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Subscription subscribe(SubscribeCommand subscribeCommand) {
 
-        log.info(String.format("Entering subscribe service - Email Id :%S", subscribeCommand.getEmailId()));
+        log.info(String.format("Entering subscribe service - Email Id :%s", subscribeCommand.getEmailId()));
 
         Subscription subscription =subscriptionDynamoRepository.findBy(subscribeCommand.getEmailId());
         if (subscription != null) {
@@ -33,6 +33,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
              subscription = Subscription.builder()
                     .emailId(subscribeCommand.getEmailId())
                      .activeSince(subscribeCommand.getExecOn())
+                     .channel(subscribeCommand.getChannel().toString())
                     .active(true)
                     .build();
         }
@@ -47,7 +48,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public void unsubscribe(UnsubscribeCommand unsubscribeCommand) {
 
-        log.info(String.format("Entering unsubscribe service - Email Id:%S", unsubscribeCommand.getEmailId()));
+        log.info(String.format("Entering unsubscribe service - Email Id:%s", unsubscribeCommand.getEmailId()));
 
         Subscription subscription = subscriptionDynamoRepository.findBy(unsubscribeCommand.getEmailId());
         if (subscription != null) {
@@ -69,7 +70,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Subscription findBy(String emailId) {
 
-        log.info(String.format("Entering findBy subscription service - Email Id:%S",emailId));
+        log.info(String.format("Entering findBy subscription service - Email Id:%s",emailId));
 
         return subscriptionDynamoRepository.findBy(emailId);    }
 

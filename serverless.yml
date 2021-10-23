@@ -7,46 +7,75 @@ provider:
   runtime: java11
   region: us-east-2
   memorySize: 1024
-  timeout: 30
+  timeout: 15
   iamRoleStatements:
     - Effect: "Allow"
       Action:
         - "dynamodb:*"
       Resource: "*"
   environment:
-    APPLICATION_ENVIRONMENT: Dev
+    APPLICATION_ENVIRONMENT: ${opt:stage}
     CLOUD_REGION: US_East_2
 functions:
   subscribe:
-    handler: org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
     events:
       - http:
           path: subscription/subscribe
           method: post
+          cors: true
+          request:
+            schemas:
+              application/json:
+                schema: ${file(api-gateway/subscribe.json)}
+                name: SubscribeModel
+                description: 'subscribe model'
     environment:
       SPRING_CLOUD_FUNCTION_DEFINITION: subscribeFunction
   unsubscribe:
-    handler: org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
     events:
       - http:
           path: subscription/unsubscribe
           method: post
+          cors: true
+          request:
+            schemas:
+              application/json:
+                schema: ${file(api-gateway/unsubscribe.json)}
+                name: UnsubscribeModel
+                description: 'unsubscribe model'
+
     environment:
-      SPRING_CLOUD_FUNCTION_DEFINITION: unsubscribeFunction
+      SPRING_CLOUD_FUNCTION_DEFINITION: unSubscribeFunction
   getAllSubscriptions:
-    handler: org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
     events:
       - http:
           path: subscription/getAll
-          method: get
+          method: post
+          cors: true
+          request:
+            schemas:
+              application/json:
+                schema: ${file(api-gateway/getAll.json)}
+                name: GetAllModel
+                description: 'get all subscriptions model'
     environment:
       SPRING_CLOUD_FUNCTION_DEFINITION: getAllFunction
   getSubScription:
-    handler: org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
     events:
       - http:
           path: subscription/get
-          method: get
+          method: post
+          cors: true
+          request:
+            schemas:
+              application/json:
+                schema: ${file(api-gateway/get.json)}
+                name: GetModel
+                description: 'get subscribe model'
     environment:
       SPRING_CLOUD_FUNCTION_DEFINITION: getFunction
 
@@ -59,13 +88,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: emailId
             AttributeType: S
-          - AttributeName: active
-            AttributeType: B
         KeySchema:
           - AttributeName: emailId
             KeyType: HASH
-          - AttributeName: active
-            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
