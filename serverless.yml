@@ -2,6 +2,7 @@ service: subscription-service
 package:
   version: 0.0.1-SNAPSHOT
   artifact: ./application/target/${self:service}-${self:package.version}-${self:provider}.jar
+  excludeDevDependencies: false
 provider:
   name: aws
   runtime: java11

@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.tekcapsule.core.domain.EmptyFunctionInput;
 import com.tekcapsule.core.domain.Origin;
 import com.tekcapsule.core.utils.HeaderUtil;
 import com.tekcapsule.subscription.application.config.AppConstants;
@@ -25,7 +26,7 @@ import java.util.function.Function;
 
 @Component
 @Slf4j
-public class SubscribeFunction implements Function<Message<SubscribeInput>, Message<Subscription>> {
+public class SubscribeFunction implements Function<Message<SubscribeInput>, Message<Void>> {
 
     private final SubscriptionService subscriptionService;
 
@@ -35,18 +36,18 @@ public class SubscribeFunction implements Function<Message<SubscribeInput>, Mess
 
 
     @Override
-    public Message<Subscription> apply(Message<SubscribeInput> subscribeInputMessage) {
+    public Message<Void> apply(Message<SubscribeInput> subscribeInputMessage) {
 
         log.info(String.format("Entering subscribe Function payload:%s", subscribeInputMessage.getPayload()));
         SubscribeInput subscribeInput = subscribeInputMessage.getPayload();
 
         Origin origin = HeaderUtil.buildOriginFromHeaders(subscribeInputMessage.getHeaders());
         SubscribeCommand subscribeCommand = InputOutputMapper.buildSubscribeCommandFromSubscribeInput.apply(subscribeInput, origin);
-        Subscription subscription = subscriptionService.subscribe(subscribeCommand);
+        subscriptionService.subscribe(subscribeCommand);
 
         Map<String, Object> responseHeader = new HashMap<>();
         responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
 
-        return new GenericMessage(subscription, responseHeader);
+        return new GenericMessage( responseHeader);
     }
 }

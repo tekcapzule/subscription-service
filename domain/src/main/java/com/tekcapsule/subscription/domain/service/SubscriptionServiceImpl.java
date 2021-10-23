@@ -22,7 +22,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public Subscription subscribe(SubscribeCommand subscribeCommand) {
+    public void subscribe(SubscribeCommand subscribeCommand) {
 
         log.info(String.format("Entering subscribe service - Email Id :%s", subscribeCommand.getEmailId()));
 
@@ -42,7 +42,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setAddedBy(subscribeCommand.getExecBy().getUserId());
         subscription.setUpdatedBy(subscribeCommand.getExecBy().getUserId());
 
-        return subscriptionDynamoRepository.save(subscription);
+        subscriptionDynamoRepository.save(subscription);
     }
 
     @Override

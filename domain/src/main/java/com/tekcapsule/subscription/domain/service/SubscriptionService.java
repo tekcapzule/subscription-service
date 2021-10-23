@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SubscriptionService {
 
-    Subscription subscribe(SubscribeCommand subscribeCommand);
+    void subscribe(SubscribeCommand subscribeCommand);
 
     void unsubscribe(UnsubscribeCommand unsubscribeCommand);
 
