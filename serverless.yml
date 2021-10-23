@@ -2,7 +2,7 @@ service: subscription-service
 package:
   version: 0.0.1-SNAPSHOT
   artifact: ./application/target/${self:service}-${self:package.version}-${self:provider}.jar
-  excludeDevDependencies: false
+  excludeDevDependencies: true
 provider:
   name: aws
   runtime: java11
@@ -24,6 +24,7 @@ functions:
       - http:
           path: subscription/subscribe
           method: post
+          async: true
           cors: true
           request:
             schemas:
@@ -39,6 +40,7 @@ functions:
       - http:
           path: subscription/unsubscribe
           method: post
+          async: true
           cors: true
           request:
             schemas:
