@@ -25,6 +25,7 @@ functions:
           path: subscription/subscribe
           method: post
           cors: true
+          async: true
           request:
             schemas:
               application/json:
@@ -40,6 +41,7 @@ functions:
           path: subscription/unsubscribe
           method: post
           cors: true
+          async: true
           request:
             schemas:
               application/json:
