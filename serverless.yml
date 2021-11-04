@@ -85,7 +85,7 @@ resources:
     subscriptionTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: Subscription
+        TableName: ${opt:stage}Subscription
         AttributeDefinitions:
           - AttributeName: emailId
             AttributeType: S
