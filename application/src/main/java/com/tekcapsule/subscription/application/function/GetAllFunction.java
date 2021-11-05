@@ -1,15 +1,18 @@
 package com.tekcapsule.subscription.application.function;
 
 import com.tekcapsule.core.domain.EmptyFunctionInput;
-import com.tekcapsule.subscription.application.config.AppConstants;
+import com.tekcapsule.core.utils.HeaderUtil;
+import com.tekcapsule.core.utils.Outcome;
+import com.tekcapsule.core.utils.Stage;
+import com.tekcapsule.subscription.application.config.AppConfig;
 import com.tekcapsule.subscription.domain.model.Subscription;
 import com.tekcapsule.subscription.domain.service.SubscriptionService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,19 +25,27 @@ public class GetAllFunction implements Function<Message<EmptyFunctionInput>, Mes
 
     private final SubscriptionService subscriptionService;
 
-    public GetAllFunction(final SubscriptionService subscriptionService) {
+    private final AppConfig appConfig;
+
+    public GetAllFunction(final SubscriptionService subscriptionService, final AppConfig appConfig) {
         this.subscriptionService = subscriptionService;
+        this.appConfig = appConfig;
     }
 
     @Override
-    public Message<List<Subscription>> apply(Message<EmptyFunctionInput>  findAllInputMessage) {
-
-        log.info("Entering get all subscription Function");
-
-        List<Subscription> subscriptions = subscriptionService.findAllSubscriptions();
-        Map<String, Object> responseHeader = new HashMap<>();
-        responseHeader.put(AppConstants.HTTP_STATUS_CODE_HEADER, HttpStatus.OK.value());
-
-        return new GenericMessage<>(subscriptions, responseHeader);
+    public Message<List<Subscription>> apply(Message<EmptyFunctionInput> findAllInputMessage) {
+        Map<String, Object> responseHeaders = new HashMap<>();
+        Map<String, Object> payload = new HashMap<>();
+        List<Subscription> subscriptions = new ArrayList<>();
+        String stage = appConfig.getStage().toUpperCase();
+        try {
+            log.info("Entering get all subscription Function");
+            subscriptions = subscriptionService.findAllSubscriptions();
+            responseHeaders = HeaderUtil.populateResponseHeaders(responseHeaders, Stage.valueOf(stage), Outcome.NOT_FOUND);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            responseHeaders = HeaderUtil.populateResponseHeaders(responseHeaders, Stage.valueOf(stage), Outcome.ERROR);
+        }
+        return new GenericMessage(subscriptions, responseHeaders);
     }
 }
