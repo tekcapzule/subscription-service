@@ -24,7 +24,14 @@ functions:
       - http:
           path: subscription/subscribe
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-User-Login
+              - X-Channel-Code
+            allowCredentials: true
           request:
             schemas:
               application/json:
@@ -39,7 +46,14 @@ functions:
       - http:
           path: subscription/unsubscribe
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-User-Login
+              - X-Channel-Code
+            allowCredentials: true
           request:
             schemas:
               application/json:
@@ -55,7 +69,14 @@ functions:
       - http:
           path: subscription/getAll
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-User-Login
+              - X-Channel-Code
+            allowCredentials: true
           request:
             schemas:
               application/json:
@@ -70,7 +91,14 @@ functions:
       - http:
           path: subscription/get
           method: post
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-User-Login
+              - X-Channel-Code
+            allowCredentials: true
           request:
             schemas:
               application/json:
