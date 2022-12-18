@@ -29,7 +29,7 @@
     </build>
     <distributionManagement>
         <repository>
-            <id>subscription-repo</id>
+            <id>subscription</id>
             <name>GitHub TekCapsule Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/tekcapsule/tekcapsule-core</url>
         </repository>
