@@ -16,14 +16,14 @@
                     <url>https://repo1.maven.org/maven2</url>
                 </repository>
                 <repository>
-                    <id>github</id>
+                    <id>subscription-repo</id>
                     <url>https://maven.pkg.github.com/tekcapsule/subscription-service</url>
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
                 </repository>
                  <repository>
-                    <id>github</id>
+                    <id>core-repo</id>
                     <url>https://maven.pkg.github.com/tekcapsule/tekcapsule-core</url>
                     <snapshots>
                         <enabled>true</enabled>
@@ -35,7 +35,12 @@
 
     <servers>
         <server>
-            <id>github</id>
+            <id>subscription-repo</id>
+            <username>${env.SERVER_USERNAME}</username>
+            <password>${env.SERVER_PASSWORD}</password>
+        </server>
+        <server>
+            <id>core-repo</id>
             <username>${env.SERVER_USERNAME}</username>
             <password>${env.SERVER_PASSWORD}</password>
         </server>
