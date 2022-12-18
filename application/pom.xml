@@ -129,4 +129,13 @@
             <url>https://maven.pkg.github.com/tekcapsule/tekcapsule-core</url>
         </repository>
     </distributionManagement>
+    <repositories>
+        <repository>
+            <id>core</id>
+            <url>https://maven.pkg.github.com/tekcapsule/tekcapsule-core</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
