@@ -11,13 +11,6 @@
         <profile>
             <id>github</id>
             <repositories>
-                <repository>
-                    <id>subscription</id>
-                    <url>https://maven.pkg.github.com/tekcapsule/subscription-service</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
                  <repository>
                     <id>core</id>
                     <url>https://maven.pkg.github.com/tekcapsule/tekcapsule-core</url>
@@ -36,11 +29,6 @@
     <servers>
         <server>
             <id>subscription</id>
-            <username>${env.SERVER_USERNAME}</username>
-            <password>${env.SERVER_PASSWORD}</password>
-        </server>
-        <server>
-            <id>core</id>
             <username>${env.SERVER_USERNAME}</username>
             <password>${env.SERVER_PASSWORD}</password>
         </server>
