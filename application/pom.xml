@@ -14,7 +14,7 @@
     <name>Subscription Service</name>
     <description>Subscription Service</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <wrapper.version>1.0.27.RELEASE</wrapper.version>
