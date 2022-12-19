@@ -110,6 +110,23 @@ functions:
       SPRING_CLOUD_FUNCTION_DEFINITION: getFunction
 
 resources:
+  extensions:
+    SubscribeLambdaFunction:
+      Properties:
+        SnapStart:
+          ApplyOn: PublishedVersions
+    UnsubscribeLambdaFunction:
+      Properties:
+        SnapStart:
+          ApplyOn: PublishedVersions
+    GetAllSubscriptionsLambdaFunction:
+      Properties:
+        SnapStart:
+          ApplyOn: PublishedVersions
+    GetSubScriptionLambdaFunction:
+      Properties:
+        SnapStart:
+          ApplyOn: PublishedVersions
   Resources:
     subscriptionTable:
       Type: AWS::DynamoDB::Table
