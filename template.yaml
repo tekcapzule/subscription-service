@@ -19,7 +19,9 @@ Globals:
     Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker
     CodeUri: ./application
     Tags:
-        Stage: !Ref Stage
+      Stage: !Ref Stage
+      Service: Feedback
+      Resource: Lambda
     Environment:
       Variables:
         TABLE: !Ref SubscriptionTable
@@ -68,7 +70,7 @@ Resources:
   SubscribeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "${Stage}Subscribe"
+      FunctionName: !Sub "${Stage}-Subscription-Subscribe"
       SnapStart:
         ApplyOn: PublishedVersions
       Policies:
@@ -89,7 +91,7 @@ Resources:
   UnsubscribeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "${Stage}Unsubscribe"
+      FunctionName: !Sub "${Stage}-Subscription-Unsubscribe"
       SnapStart:
         ApplyOn: PublishedVersions
       Policies:
@@ -97,7 +99,7 @@ Resources:
             TableName: !Ref SubscriptionTable
       Environment:
         Variables:
-          SPRING_CLOUD_FUNCTION_DEFINITION: unsubscribeFunction
+          SPRING_CLOUD_FUNCTION_DEFINITION: unSubscribeFunction
       Events:
         ApiEvent:
           Type: Api
@@ -110,7 +112,7 @@ Resources:
   GetAllSubscriptionsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "${Stage}GetAllSubscriptions"
+      FunctionName: !Sub "${Stage}-Subscription-GetAllSubscriptions"
       SnapStart:
         ApplyOn: PublishedVersions
       Policies:
@@ -131,7 +133,7 @@ Resources:
   GetSubscriptionFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "${Stage}GetSubscription"
+      FunctionName: !Sub "${Stage}-Subscription-GetSubscription"
       SnapStart:
         ApplyOn: PublishedVersions
       Policies:
