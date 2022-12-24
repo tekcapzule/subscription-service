@@ -1,0 +1,157 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Subscription-Service-Deployment-Descriptor
+
+Parameters:
+  Stage:
+    Type: String
+    Description: Stage name to deploy resources to
+    AllowedValues:
+      - dev
+      - prod
+
+Globals:
+  Function:
+    Runtime: java11
+    MemorySize: 1024
+    Timeout: 20
+    AutoPublishAlias: !Ref Stage
+    Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker
+    CodeUri: ./application
+    Tags:
+        Stage: !Ref Stage
+    Environment:
+      Variables:
+        TABLE: !Ref SubscriptionTable
+        APPLICATION_ENVIRONMENT: !Ref Stage
+        CLOUD_REGION: US_West_2
+        MAIN_CLASS: com.tekcapsule.subscription.application.SubscriptionApplication
+        JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+
+Resources:
+
+  # Setup API Gateway
+
+  SubscriptionApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub "subscription-${Stage}"
+      StageName: !Ref Stage
+      Cors:
+        AllowMethods: "'POST, GET'"
+        AllowHeaders: "'X-Forwarded-For, Content-Type, Authorization, X-User-Login, X-Channel-Code'"
+        AllowOrigin: "'*'"
+        MaxAge: "'600'"
+        AllowCredentials: false
+      Variables:
+        LAMBDA_ALIAS: !Ref Stage
+
+  # Setup DynamoDB Table
+
+  SubscriptionTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${Stage}Subscription"
+      AttributeDefinitions:
+        - AttributeName: emailId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: emailId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1"
+
+
+  # Setup Lambda Functions
+
+  SubscribeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${Stage}Subscribe"
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SubscriptionTable
+      Environment:
+        Variables:
+          SPRING_CLOUD_FUNCTION_DEFINITION: subscribeFunction
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: subscription/subscribe
+            Method: post
+            RestApiId:
+              Ref: SubscriptionApi
+
+  UnsubscribeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${Stage}Unsubscribe"
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SubscriptionTable
+      Environment:
+        Variables:
+          SPRING_CLOUD_FUNCTION_DEFINITION: unsubscribeFunction
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: subscription/unsubscribe
+            Method: post
+            RestApiId:
+              Ref: SubscriptionApi
+
+  GetAllSubscriptionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${Stage}GetAllSubscriptions"
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SubscriptionTable
+      Environment:
+        Variables:
+          SPRING_CLOUD_FUNCTION_DEFINITION: getAllFunction
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: subscription/getAll
+            Method: post
+            RestApiId:
+              Ref: SubscriptionApi
+
+  GetSubscriptionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${Stage}GetSubscription"
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SubscriptionTable
+      Environment:
+        Variables:
+          SPRING_CLOUD_FUNCTION_DEFINITION: getFunction
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: subscription/get
+            Method: post
+            RestApiId:
+              Ref: SubscriptionApi
+
+  # Set Output Variable
+
+Outputs:
+  ApiEndpoint:
+    Description: "Subscription API endpoint."
+    Value: !Sub "https://${SubscriptionApi}.execute-api.${AWS::Region}.amazonaws.com/${Stage}/subscription"
