@@ -20,7 +20,7 @@ Globals:
     CodeUri: ./application
     Tags:
       Stage: !Ref Stage
-      Service: Feedback
+      Service: Subscription
       Resource: Lambda
     Environment:
       Variables:
