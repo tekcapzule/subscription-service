@@ -1,45 +1,145 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+<!-- PROJECT SHIELDS -->
+<a name="readme-top"></a>
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Main Branch](https://github.com/tekcapsule/subscription-service/actions/workflows/cicd.yml/badge.svg)](https://github.com/tekcapsule/subscription-service/actions/workflows/cicd.yml) 
+[![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=tekcapsule_subscription-service&metric=bugs)](https://sonarcloud.io/project/overview?id=tekcapsule_subscription-service)
+[![SonarCloud Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=tekcapsule_subscription-service&metric=vulnerabilities)](https://sonarcloud.io/project/overview?id=tekcapsule_subscription-service)
+[![SonarCloud Code Smell](https://sonarcloud.io/api/project_badges/measure?project=tekcapsule_subscription-service&metric=code_smells)](https://sonarcloud.io/project/overview?id=tekcapsule_subscription-service)
+[![SonarCloud Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=tekcapsule_subscription-service&metric=ncloc)](https://sonarcloud.io/project/overview?id=tekcapsule_subscription-service)
+[![Github all releases](https://img.shields.io/github/downloads/tekcapsule/subscription-service/total.svg)](https://GitHub.com/tekcapsule/subscription-service/releases/)
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+<!-- PROJECT LOGO -->
 
----
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/9839481/209770761-99fd940f-3c75-407b-a339-9fd2cd2c5b7f.svg">
+  <h3 align="center">Subscription Service</h3>
+  <p align="center">
+    A set of lambda functions to manage subscriptions in TekCapsule
+    <br />
+    <a href="https://www.tekcapsule.com/">View Demo</a> |
+    <a href="https://github.com/tekcapsule/subscription-service/issues">Report Bug</a> |
+    <a href="https://github.com/tekcapsule/subscription-service/issues">Request Feature</a>
+  </p>
+</div>
+<div align="center">
+  
+  <a href="https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=389066361&machine=standardLinux32gb&location=SouthEastAsia">![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)</a>
 
-## Edit a file
+</div>
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
 
----
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-## Create a file
+This project contains set of functions written in Java 11 to create, update, query and manage TekCapsule subscriptions. It is a multi-module maven project with two modules named application & domain. Application module is a springboot application that exposes these functions and domain module contains the domain logic.
 
-Next, you’ll add a new file to this repository.
+[![![subscription-service](https://user-images.githubusercontent.com/9839481/209930491-09fdfb55-0b47-432e-a9de-c6d657a1befa.png)
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+### Built With
 
----
+* ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+* ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+* ![Apache Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)
+* ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
-## Clone a repository
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- GETTING STARTED -->
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+## Getting Started
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
+Please follow the below instructions to setup the project locally.
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+### Prerequisites
+
+This project requires following softwares: 
+* SAM  
+* JAVA 11
+* Maven 
+
+### Installation
+
+Please follow the step by step instructions to install the required softwares and setup the project.
+1. Get the AWS Access Key details
+2. Clone the repo
+   ```sh
+   git clone https://github.com/tekcapsule/subscription-service.git
+   ```
+3. Install SAM CLI by following instructions https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html
+4. Configure the following Environment variables
+* APPLICATION_ENVIRONMENT=<Environment_Name>
+* CLOUD_REGION=<Region_Name>
+* secrets.AWS_ACCESS_KEY_ID=<Access_KEY_ID>
+* secrets.AWS_SECRET_ACCESS_KEY=<Access_KEY_Value>
+* secrets.SERVER_PASSWORD=<SERVER_PASSWORD>
+* secrets.SERVER_USERNAME=<SERVER_USERNAME>
+
+Note: SERVER_USERNAME and SERVER_PASSWORD details will be be provided by the maintainers on request.
+
+5. Copy the settings.xml to ~/.m2
+6. Run the command
+   ```sh
+   mvn build
+   sam build
+   ```
+   
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+See the [open issues](https://github.com/tekcapsule/subscription-service/issues) for a list of proposed features (and known issues).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+## How to Contribute?
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/Neweature`)
+3. Commit your Changes (`git commit -m 'Add some NewFeature'`)
+4. Push to the Branch (`git push origin feature/NewFeature`)
+5. Open a Pull Request
+
+## Contributors
+<img src= "https://contrib.rocks/image?repo=tekcapsule/subscription-service">
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## License
+
+Distributed under the GNU GENERAL PUBLIC LICENSE. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
