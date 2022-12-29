@@ -57,6 +57,7 @@ build/
 .vscode/
 
 /.serverless/
+/.aws-sam/
 /.DS_Store/
 .DS_Store
 **/.DS_Store
