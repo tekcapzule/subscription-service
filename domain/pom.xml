@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.tekcapsule</groupId>
     <artifactId>subscription-domain</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Subscription Domain</name>
     <description>Subscription Domain</description>
     <properties>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>com.tekcapsule</groupId>
             <artifactId>tekcapsule-core</artifactId>
-            <version>0.2.5-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
