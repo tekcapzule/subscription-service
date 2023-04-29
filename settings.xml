@@ -18,6 +18,10 @@
                     </snapshots>
                 </repository>
                 <repository>
+                    <id>subscription</id>
+                    <url>https://maven.pkg.github.com/tekcapsule/subscription-service</url>
+                </repository>
+                <repository>
                     <id>central</id>
                     <url>https://repo1.maven.org/maven2</url>
                 </repository>
