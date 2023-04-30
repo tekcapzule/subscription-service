@@ -26,7 +26,7 @@ Globals:
       Variables:
         TABLE: !Ref SubscriptionTable
         APPLICATION_ENVIRONMENT: !Ref Stage
-        CLOUD_REGION: US_EAST_1
+        CLOUD_REGION: us-east-1
         MAIN_CLASS: com.tekcapsule.subscription.application.SubscriptionApplication
         JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
 
