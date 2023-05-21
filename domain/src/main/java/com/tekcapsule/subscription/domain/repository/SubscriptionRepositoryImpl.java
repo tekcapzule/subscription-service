@@ -2,6 +2,7 @@ package com.tekcapsule.subscription.domain.repository;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.Select;
 import com.tekcapsule.subscription.domain.model.Subscription;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class SubscriptionRepositoryImpl implements SubscriptionDynamoRepository 
     public Subscription save(Subscription subscription) {
         dynamo.save(subscription);
         return subscription;
+    }
+
+    @Override
+    public int getAllSubscriptionsCount() {
+        return dynamo.count(Subscription.class,new DynamoDBScanExpression().withSelect(Select.COUNT));
     }
 
 }
