@@ -36,7 +36,7 @@ public class GetCountFunction implements Function<Message<EmptyFunctionInput>, M
         int subscriptionsCount = 0;
         String stage = appConfig.getStage().toUpperCase();
         try {
-            log.info("Entering get all caspules count Function");
+            log.info("Entering get all subscriptions count Function");
             subscriptionsCount = subscriptionService.getAllSubscriptionsCount();
             responseHeaders = HeaderUtil.populateResponseHeaders(responseHeaders, Stage.valueOf(stage), Outcome.SUCCESS);
         } catch (Exception ex) {
