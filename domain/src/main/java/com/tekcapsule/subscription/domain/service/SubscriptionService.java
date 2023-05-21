@@ -16,4 +16,5 @@ public interface SubscriptionService {
     List<Subscription> findAllSubscriptions();
 
     Subscription findBy( String emailId);
+    int getAllSubscriptionsCount();
 }

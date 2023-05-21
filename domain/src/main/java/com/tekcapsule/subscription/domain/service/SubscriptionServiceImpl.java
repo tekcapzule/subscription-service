@@ -72,6 +72,13 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         log.info(String.format("Entering findBy subscription service - Email Id:%s",emailId));
 
-        return subscriptionDynamoRepository.findBy(emailId);    }
+        return subscriptionDynamoRepository.findBy(emailId);
+    }
+
+    @Override
+    public int getAllSubscriptionsCount() {
+        log.info("Entering getall Subscriptions count service");
+        return subscriptionDynamoRepository.getAllSubscriptionsCount();
+    }
 
 }

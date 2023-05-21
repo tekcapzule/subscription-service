@@ -5,4 +5,5 @@ import com.tekcapsule.subscription.domain.model.Subscription;
 
 
 public interface SubscriptionDynamoRepository extends CrudRepository<Subscription, String> {
+    int getAllSubscriptionsCount();
 }

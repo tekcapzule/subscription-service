@@ -151,6 +151,27 @@ Resources:
             RestApiId:
               Ref: SubscriptionApi
 
+  GetSubscriptionsCountFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${Stage}-Subscription-GetSubscriptionsCount"
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SubscriptionTable
+      Environment:
+        Variables:
+          SPRING_CLOUD_FUNCTION_DEFINITION: getCountFunction
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: subscription/getCount
+            Method: post
+            RestApiId:
+              Ref: SubscriptionApi
+
   # Set Output Variable
 
 Outputs:
