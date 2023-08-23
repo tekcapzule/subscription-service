@@ -7,8 +7,7 @@ import lombok.Getter;
 public enum Status {
     ACTIVE("Active"),
     INACTIVE("Inactive"),
-    EXPIRED("Expired"),
-    SUBMITTED("Submitted");
+    EXPIRED("Expired");
 
     @Getter
     private String value;

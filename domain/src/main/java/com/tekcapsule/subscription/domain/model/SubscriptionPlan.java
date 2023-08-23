@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum Currency {
-    INR("INR"),
-    USD("USD"),
-    EUR("EUR"),
-    GBP("GBP");
+public enum SubscriptionPlan {
+    MONTHLY("Monthly"),
+    YEARLY("Yearly");
 
     @Getter
     private String value;

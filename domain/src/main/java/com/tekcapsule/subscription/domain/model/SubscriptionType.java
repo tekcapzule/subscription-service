@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum Currency {
-    INR("INR"),
-    USD("USD"),
-    EUR("EUR"),
-    GBP("GBP");
+public enum SubscriptionType {
+    FREE("Free"),
+    STANDARD("Standard"),
+    PROFESSIONAL("Professional");
 
     @Getter
     private String value;
