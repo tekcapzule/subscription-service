@@ -5,5 +5,5 @@ import com.tekcapsule.subscription.domain.model.Subscription;
 
 
 public interface SubscriptionRepository extends CrudRepository<Subscription, String> {
-    int getAllSubscriptionsCount();
+    int getSubscriptionsCount();
 }

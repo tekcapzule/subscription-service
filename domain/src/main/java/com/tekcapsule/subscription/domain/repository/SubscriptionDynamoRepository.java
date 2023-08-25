@@ -39,7 +39,7 @@ public class SubscriptionDynamoRepository implements SubscriptionRepository {
     }
 
     @Override
-    public int getAllSubscriptionsCount() {
+    public int getSubscriptionsCount() {
         return dynamo.count(Subscription.class,new DynamoDBScanExpression().withSelect(Select.COUNT));
     }
 

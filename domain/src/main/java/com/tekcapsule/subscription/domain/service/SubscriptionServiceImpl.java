@@ -1,6 +1,7 @@
 package com.tekcapsule.subscription.domain.service;
 
 import com.tekcapsule.subscription.domain.command.UnsubscribeCommand;
+import com.tekcapsule.subscription.domain.model.Status;
 import com.tekcapsule.subscription.domain.model.Subscription;
 import com.tekcapsule.subscription.domain.repository.SubscriptionRepository;
 import com.tekcapsule.subscription.domain.command.SubscribeCommand;
@@ -24,17 +25,19 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public void subscribe(SubscribeCommand subscribeCommand) {
 
-        log.info(String.format("Entering subscribe service - Email Id :%s", subscribeCommand.getEmailId()));
+        log.info(String.format("Entering subscribe service - Subscription Id :%s", subscribeCommand.getSubscriptionId()));
 
-        Subscription subscription = subscriptionRepository.findBy(subscribeCommand.getEmailId());
+        Subscription subscription = subscriptionRepository.findBy(subscribeCommand.getSubscriptionId());
         if (subscription != null) {
-            subscription.setActive(true);
-        }else{
-             subscription = Subscription.builder()
-                    .emailId(subscribeCommand.getEmailId())
-                     .activeSince(subscribeCommand.getExecOn())
-                     .channel(subscribeCommand.getChannel().toString())
-                    .active(true)
+            subscription.setStatus(Status.ACTIVE);
+        } else {
+            subscription = Subscription.builder()
+                    .subscriptionId(subscribeCommand.getSubscriptionId())
+                    .subscriptionType(subscribeCommand.getSubscriptionType())
+                    .subscriptionPlan(subscribeCommand.getSubscriptionPlan())
+                    .activeSince(subscribeCommand.getExecOn())
+                    .channel(subscribeCommand.getChannel())
+                    .status(Status.ACTIVE)
                     .build();
         }
         subscription.setAddedOn(subscribeCommand.getExecOn());
@@ -48,11 +51,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public void unsubscribe(UnsubscribeCommand unsubscribeCommand) {
 
-        log.info(String.format("Entering unsubscribe service - Email Id:%s", unsubscribeCommand.getEmailId()));
+        log.info(String.format("Entering unsubscribe service - Subscription Id:%s", unsubscribeCommand.getSubscriptionId()));
 
-        Subscription subscription = subscriptionRepository.findBy(unsubscribeCommand.getEmailId());
+        Subscription subscription = subscriptionRepository.findBy(unsubscribeCommand.getSubscriptionId());
         if (subscription != null) {
-            subscription.setActive(false);
+            subscription.setStatus(Status.INACTIVE);
             subscription.setUpdatedOn(unsubscribeCommand.getExecOn());
             subscription.setUpdatedBy(unsubscribeCommand.getExecBy().getUserId());
             subscriptionRepository.save(subscription);
@@ -68,14 +71,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Subscription getSubscription(String subscriptionId) {
-        log.info(String.format("Entering findBy subscription service - Subscription Id:%s",subscriptionId));
-        return subscriptionRepository.findBy(emailId);
+        log.info(String.format("Entering findBy subscription service - Subscription Id:%s", subscriptionId));
+        return subscriptionRepository.findBy(subscriptionId);
     }
 
     @Override
     public int getSubscriptionCount() {
-        log.info("Entering getall Subscriptions count service");
-        return subscriptionRepository.getAllSubscriptionsCount();
+        log.info("Entering get Subscriptions count service");
+        return subscriptionRepository.getSubscriptionsCount();
     }
 
 }
