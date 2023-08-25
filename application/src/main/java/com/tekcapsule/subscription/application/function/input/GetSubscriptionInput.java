@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
-public class GetInput {
+public class GetSubscriptionInput {
     private String emailId;
 }

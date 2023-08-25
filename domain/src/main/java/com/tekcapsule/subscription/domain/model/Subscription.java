@@ -6,6 +6,8 @@ import com.tekcapsule.core.domain.AggregateRoot;
 import com.tekcapsule.core.domain.BaseDomainEntity;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode(callSuper = true)
@@ -25,13 +27,14 @@ public class Subscription extends BaseDomainEntity implements AggregateRoot {
     @DynamoDBAttribute(attributeName="subscriptionType")
     @DynamoDBTypeConvertedEnum
     private SubscriptionType subscriptionType;
-    @DynamoDBAttribute(attributeName="status")
-    @DynamoDBTypeConvertedEnum
-    private Status status;
+    private List<Transaction> transactions;
     @DynamoDBAttribute(attributeName="channel")
     @DynamoDBTypeConvertedEnum
     private Channel channel;
     @DynamoDBAttribute(attributeName="activeSince")
     @DynamoDBTypeConvertedEnum
     private String activeSince;
+    @DynamoDBAttribute(attributeName="status")
+    @DynamoDBTypeConvertedEnum
+    private Status status;
 }

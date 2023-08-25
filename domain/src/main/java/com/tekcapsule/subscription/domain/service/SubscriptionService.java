@@ -13,8 +13,8 @@ public interface SubscriptionService {
 
     void unsubscribe(UnsubscribeCommand unsubscribeCommand);
 
-    List<Subscription> findAllSubscriptions();
+    List<Subscription> getAllSubscriptions();
 
-    Subscription findBy( String emailId);
-    int getAllSubscriptionsCount();
+    Subscription getSubscription( String subscriptionId);
+    int getSubscriptionCount();
 }

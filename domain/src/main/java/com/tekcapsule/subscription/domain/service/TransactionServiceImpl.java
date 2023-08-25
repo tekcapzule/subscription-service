@@ -1,24 +1,20 @@
 package com.tekcapsule.subscription.domain.service;
 
+import com.tekcapsule.subscription.domain.command.SubscribeCommand;
 import com.tekcapsule.subscription.domain.command.UnsubscribeCommand;
 import com.tekcapsule.subscription.domain.model.Subscription;
-import com.tekcapsule.subscription.domain.repository.SubscriptionRepository;
-import com.tekcapsule.subscription.domain.command.SubscribeCommand;
-import lombok.extern.slf4j.Slf4j;
+import com.tekcapsule.subscription.domain.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
-@Service
-public class SubscriptionServiceImpl implements SubscriptionService {
+public class TransactionServiceImpl implements SubscriptionService {
 
-    private SubscriptionRepository subscriptionRepository;
+    private TransactionRepository transactionRepository;
 
     @Autowired
-    public SubscriptionServiceImpl(SubscriptionRepository subscriptionRepository) {
-        this.subscriptionRepository = subscriptionRepository;
+    public TransactionServiceImpl(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
     }
 
     @Override
@@ -26,14 +22,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         log.info(String.format("Entering subscribe service - Email Id :%s", subscribeCommand.getEmailId()));
 
-        Subscription subscription = subscriptionRepository.findBy(subscribeCommand.getEmailId());
+        Subscription subscription = transactionRepository.findBy(subscribeCommand.getEmailId());
         if (subscription != null) {
             subscription.setActive(true);
         }else{
-             subscription = Subscription.builder()
+            subscription = Subscription.builder()
                     .emailId(subscribeCommand.getEmailId())
-                     .activeSince(subscribeCommand.getExecOn())
-                     .channel(subscribeCommand.getChannel().toString())
+                    .activeSince(subscribeCommand.getExecOn())
+                    .channel(subscribeCommand.getChannel().toString())
                     .active(true)
                     .build();
         }
@@ -42,7 +38,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setAddedBy(subscribeCommand.getExecBy().getUserId());
         subscription.setUpdatedBy(subscribeCommand.getExecBy().getUserId());
 
-        subscriptionRepository.save(subscription);
+        transactionRepository.save(subscription);
     }
 
     @Override
@@ -50,12 +46,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         log.info(String.format("Entering unsubscribe service - Email Id:%s", unsubscribeCommand.getEmailId()));
 
-        Subscription subscription = subscriptionRepository.findBy(unsubscribeCommand.getEmailId());
+        Subscription subscription = transactionRepository.findBy(unsubscribeCommand.getEmailId());
         if (subscription != null) {
             subscription.setActive(false);
             subscription.setUpdatedOn(unsubscribeCommand.getExecOn());
             subscription.setUpdatedBy(unsubscribeCommand.getExecBy().getUserId());
-            subscriptionRepository.save(subscription);
+            transactionRepository.save(subscription);
         }
     }
 
@@ -63,19 +59,19 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public List<Subscription> getAllSubscriptions() {
         log.info("Entering findAll subscription service");
 
-        return subscriptionRepository.findAll();
+        return transactionRepository.findAll();
     }
 
     @Override
     public Subscription getSubscription(String subscriptionId) {
         log.info(String.format("Entering findBy subscription service - Subscription Id:%s",subscriptionId));
-        return subscriptionRepository.findBy(emailId);
+        return transactionRepository.findBy(emailId);
     }
 
     @Override
     public int getSubscriptionCount() {
         log.info("Entering getall Subscriptions count service");
-        return subscriptionRepository.getAllSubscriptionsCount();
+        return transactionRepository.getAllSubscriptionsCount();
     }
 
 }

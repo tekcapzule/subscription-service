@@ -4,7 +4,7 @@ import com.tekcapsule.core.utils.HeaderUtil;
 import com.tekcapsule.core.utils.Outcome;
 import com.tekcapsule.core.utils.Stage;
 import com.tekcapsule.subscription.application.config.AppConfig;
-import com.tekcapsule.subscription.application.function.input.GetInput;
+import com.tekcapsule.subscription.application.function.input.GetTransactionInput;
 import com.tekcapsule.subscription.domain.model.Subscription;
 import com.tekcapsule.subscription.domain.service.SubscriptionService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 @Component
 @Slf4j
-public class GetFunction implements Function<Message<GetInput>, Message<Subscription>> {
+public class GetFunction implements Function<Message<GetTransactionInput>, Message<Subscription>> {
 
     private final SubscriptionService subscriptionService;
 
@@ -30,16 +30,16 @@ public class GetFunction implements Function<Message<GetInput>, Message<Subscrip
     }
 
     @Override
-    public Message<Subscription> apply(Message<GetInput> findByInputMessage) {
+    public Message<Subscription> apply(Message<GetTransactionInput> findByInputMessage) {
         Map<String, Object> responseHeaders = new HashMap<>();
         Map<String, Object> payload = new HashMap<>();
         Subscription subscription = new Subscription();
         String stage = appConfig.getStage().toUpperCase();
         try {
-            GetInput getInput = findByInputMessage.getPayload();
+            GetTransactionInput getTransactionInput = findByInputMessage.getPayload();
 
-            log.info("Entering get subscription Function Email Id:%s", getInput.getEmailId());
-            subscription = subscriptionService.findBy(getInput.getEmailId());
+            log.info("Entering get subscription Function Email Id:%s", getTransactionInput.getEmailId());
+            subscription = subscriptionService.findBy(getTransactionInput.getEmailId());
             Map<String, Object> responseHeader = new HashMap<>();
             responseHeaders = HeaderUtil.populateResponseHeaders(responseHeaders, Stage.valueOf(stage), Outcome.NOT_FOUND);
         } catch (Exception ex) {
