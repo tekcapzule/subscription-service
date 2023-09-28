@@ -23,8 +23,8 @@ public class SubscriptionDynamoRepository implements SubscriptionRepository {
 
 
     @Override
-    public Subscription findBy(String emailId) {
-        return dynamo.load(Subscription.class, emailId);
+    public Subscription findBy(String subscriptionId) {
+        return dynamo.load(Subscription.class, subscriptionId);
     }
 
     @Override

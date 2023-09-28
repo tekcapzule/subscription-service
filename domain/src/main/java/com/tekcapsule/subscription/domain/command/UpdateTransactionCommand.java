@@ -10,5 +10,5 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 public class UpdateTransactionCommand extends Command {
-    private String emailId;
+    private String subscriptionId;
 }

@@ -55,10 +55,10 @@ Resources:
     Properties:
       TableName: !Sub "${Stage}Subscription"
       AttributeDefinitions:
-        - AttributeName: emailId
+        - AttributeName: subscriptionId
           AttributeType: S
       KeySchema:
-        - AttributeName: emailId
+        - AttributeName: subscriptionId
           KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 1

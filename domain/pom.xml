@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.tekcapsule</groupId>
     <artifactId>subscription-domain</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>Subscription Domain</name>
     <description>Subscription Domain</description>
     <properties>

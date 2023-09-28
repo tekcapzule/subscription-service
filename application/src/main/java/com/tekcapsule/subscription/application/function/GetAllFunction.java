@@ -40,7 +40,7 @@ public class GetAllFunction implements Function<Message<EmptyFunctionInput>, Mes
         String stage = appConfig.getStage().toUpperCase();
         try {
             log.info("Entering get all subscription Function");
-            subscriptions = subscriptionService.findAllSubscriptions();
+            subscriptions = subscriptionService.getAllSubscriptions();
             responseHeaders = HeaderUtil.populateResponseHeaders(responseHeaders, Stage.valueOf(stage), Outcome.NOT_FOUND);
         } catch (Exception ex) {
             log.error(ex.getMessage());

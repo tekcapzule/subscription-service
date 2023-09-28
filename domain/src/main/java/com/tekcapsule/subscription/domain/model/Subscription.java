@@ -32,7 +32,6 @@ public class Subscription extends BaseDomainEntity implements AggregateRoot {
     @DynamoDBTypeConvertedEnum
     private Channel channel;
     @DynamoDBAttribute(attributeName="activeSince")
-    @DynamoDBTypeConvertedEnum
     private String activeSince;
     @DynamoDBAttribute(attributeName="status")
     @DynamoDBTypeConvertedEnum
