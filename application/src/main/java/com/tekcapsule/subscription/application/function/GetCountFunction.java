@@ -37,7 +37,7 @@ public class GetCountFunction implements Function<Message<EmptyFunctionInput>, M
         String stage = appConfig.getStage().toUpperCase();
         try {
             log.info("Entering get all subscriptions count Function");
-            subscriptionsCount = subscriptionService.getAllSubscriptionsCount();
+            subscriptionsCount = subscriptionService.getSubscriptionCount();
             responseHeaders = HeaderUtil.populateResponseHeaders(responseHeaders, Stage.valueOf(stage), Outcome.SUCCESS);
         } catch (Exception ex) {
             log.error(ex.getMessage());

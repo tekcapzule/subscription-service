@@ -38,7 +38,7 @@ public class UnSubscribeFunction implements Function<Message<UnSubscribeInput>, 
         String stage = appConfig.getStage().toUpperCase();
         try {
             UnSubscribeInput unSubscribeInput = unSubscribeInputMessage.getPayload();
-            log.info(String.format("Entering unsubscribe Function - Email Id:%s", unSubscribeInput.getEmailId()));
+            log.info(String.format("Entering unsubscribe Function - Email Id:%s", unSubscribeInput.getSubscriptionId()));
             Origin origin = HeaderUtil.buildOriginFromHeaders(unSubscribeInputMessage.getHeaders());
             UnsubscribeCommand unsubscribeCommand = InputOutputMapper.buildUnSubscribeCommandFromUnSubscribeInput.apply(unSubscribeInput, origin);
             subscriptionService.unsubscribe(unsubscribeCommand);

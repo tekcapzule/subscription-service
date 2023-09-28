@@ -22,37 +22,40 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Override
     public void initiateTransaction(InitiateTransactionCommand initiateTransactionCommand) {
-        log.info(String.format("Entering subscribe service - Email Id :%s", initiateTransactionCommand.getEmailId()));
+        log.info(String.format("Entering subscribe service - Subscription Id :%s", initiateTransactionCommand.getSubscriptionId()));
 
-        Subscription subscription = transactionRepository.findBy(subscribeCommand.getEmailId());
-        if (subscription != null) {
-            subscription.setActive(true);
-        }else{
-            subscription = Subscription.builder()
-                    .emailId(subscribeCommand.getEmailId())ß
-                    .activeSince(subscribeCommand.getExecOn())
-                    .channel(subscribeCommand.getChannel().toString())
-                    .active(true)
-                    .build();
+        Transaction transaction = transactionRepository.findBy(initiateTransactionCommand.getSubscriptionId());
+        if (transaction != null) {
+            transaction = Transaction.builder()
+                    .transactedOn(initiateTransactionCommand.getTransactedOn())
+                    .externalReferenceId(initiateTransactionCommand.getExternalReferenceId())
+                    .billingPeriod(initiateTransactionCommand.getBillingPeriod())
+                    .invoiceId(initiateTransactionCommand.getInvoiceId())
+                    .transactionType(initiateTransactionCommand.getTransactionType())
+                    .invoiceId(initiateTransactionCommand.getInvoiceId())
+                    .amount(initiateTransactionCommand.getAmount())
+                    .comments(initiateTransactionCommand.getComments())
+                    .transactionId(initiateTransactionCommand.getSubscriptionId())
+                    .paymentMethod(initiateTransactionCommand.getPaymentMethod())
+                    .currency(initiateTransactionCommand.getCurrency()).build();
         }
-        subscription.setAddedOn(subscribeCommand.getExecOn());
-        subscription.setUpdatedOn(subscribeCommand.getExecOn());
-        subscription.setAddedBy(subscribeCommand.getExecBy().getUserId());
-        subscription.setUpdatedBy(subscribeCommand.getExecBy().getUserId());
+        transaction.setAddedOn(initiateTransactionCommand.getExecOn());
+        transaction.setUpdatedOn(initiateTransactionCommand.getExecOn());
+        transaction.setAddedBy(initiateTransactionCommand.getExecBy().getUserId());
+        transaction.setUpdatedBy(initiateTransactionCommand.getExecBy().getUserId());
 
-        transactionRepository.save(subscription);
+        transactionRepository.save(transaction);
     }
 
     @Override
     public void updateTransaction(UpdateTransactionCommand updateTransactionCommand) {
-        log.info(String.format("Entering unsubscribe service - Email Id:%s", unsubscribeCommand.getEmailId()));
+        log.info(String.format("Entering unsubscribe service - Subscription Id:%s", updateTransactionCommand.getSubscriptionId()));
 
-        Subscription subscription = transactionRepository.findBy(unsubscribeCommand.getEmailId());
-        if (subscription != null) {
-            subscription.setActive(false);
-            subscription.setUpdatedOn(unsubscribeCommand.getExecOn());
-            subscription.setUpdatedBy(unsubscribeCommand.getExecBy().getUserId());
-            transactionRepository.save(subscription);
+        Transaction transaction = transactionRepository.findBy(updateTransactionCommand.getSubscriptionId());
+        if (transaction != null) {
+            transaction.setUpdatedOn(updateTransactionCommand.getExecOn());
+            transaction.setUpdatedBy(updateTransactionCommand.getExecBy().getUserId());
+            transactionRepository.save(transaction);
         }
     }
 

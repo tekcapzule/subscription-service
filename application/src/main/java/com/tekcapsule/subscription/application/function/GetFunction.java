@@ -38,8 +38,8 @@ public class GetFunction implements Function<Message<GetTransactionInput>, Messa
         try {
             GetTransactionInput getTransactionInput = findByInputMessage.getPayload();
 
-            log.info("Entering get subscription Function Email Id:%s", getTransactionInput.getEmailId());
-            subscription = subscriptionService.findBy(getTransactionInput.getEmailId());
+            log.info("Entering get subscription Function Subscription Id:%s", getTransactionInput.getSubscriptionId());
+            subscription = subscriptionService.getSubscription(getTransactionInput.getSubscriptionId());
             Map<String, Object> responseHeader = new HashMap<>();
             responseHeaders = HeaderUtil.populateResponseHeaders(responseHeaders, Stage.valueOf(stage), Outcome.NOT_FOUND);
         } catch (Exception ex) {

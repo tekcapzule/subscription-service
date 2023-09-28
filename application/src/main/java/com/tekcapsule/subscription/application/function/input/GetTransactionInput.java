@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
 public class GetTransactionInput {
-    private String emailId;
+    private String subscriptionId;
 }
