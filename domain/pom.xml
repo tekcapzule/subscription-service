@@ -8,9 +8,9 @@
         <version>2.7.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.tekcapsule</groupId>
+    <groupId>com.tekcapzule</groupId>
     <artifactId>subscription-domain</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <name>Subscription Domain</name>
     <description>Subscription Domain</description>
     <properties>
@@ -27,9 +27,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.tekcapsule</groupId>
-            <artifactId>tekcapsule-core</artifactId>
-            <version>1.0.2</version>
+            <groupId>com.tekcapzule</groupId>
+            <artifactId>tekcapzule-core</artifactId>
+            <version>1.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -62,8 +62,8 @@
     <distributionManagement>
         <repository>
             <id>subscription</id>
-            <name>GitHub TekCapsule Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/tekcapsule/subscription-service</url>
+            <name>GitHub TekCapzule Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/tekcapzule/subscription-service</url>
         </repository>
     </distributionManagement>
 </project>

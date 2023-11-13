@@ -12,14 +12,14 @@
             <repositories>
                  <repository>
                     <id>core</id>
-                    <url>https://maven.pkg.github.com/tekcapsule/tekcapsule-core</url>
+                    <url>https://maven.pkg.github.com/tekcapzule/tekcapzule-core</url>
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>
                 </repository>
                 <repository>
                     <id>subscription</id>
-                    <url>https://maven.pkg.github.com/tekcapsule/subscription-service</url>
+                    <url>https://maven.pkg.github.com/tekcapzule/subscription-service</url>
                 </repository>
                 <repository>
                     <id>central</id>

@@ -8,16 +8,16 @@
         <version>2.7.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.tekcapsule</groupId>
+    <groupId>com.tekcapzule</groupId>
     <artifactId>subscription-service</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <name>Subscription Service</name>
     <description>Subscription Service</description>
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <sonar.organization>tekcapsule</sonar.organization>
+        <sonar.organization>tekcapzule</sonar.organization>
         <wrapper.version>1.0.27.RELEASE</wrapper.version>
         <aws-lambda-events.version>3.9.0</aws-lambda-events.version>
         <spring-cloud-function.version>2021.0.5</spring-cloud-function.version>
@@ -47,14 +47,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.tekcapsule</groupId>
-            <artifactId>tekcapsule-core</artifactId>
-            <version>1.0.2</version>
+            <groupId>com.tekcapzule</groupId>
+            <artifactId>tekcapzule-core</artifactId>
+            <version>1.0.3</version>
         </dependency>
         <dependency>
-            <groupId>com.tekcapsule</groupId>
+            <groupId>com.tekcapzule</groupId>
             <artifactId>subscription-domain</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -116,8 +116,8 @@
     <distributionManagement>
         <repository>
             <id>subscription</id>
-            <name>GitHub TekCapsule Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/tekcapsule/subscription-service</url>
+            <name>GitHub TekCapzule Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/tekcapzule/subscription-service</url>
         </repository>
     </distributionManagement>
 </project>
