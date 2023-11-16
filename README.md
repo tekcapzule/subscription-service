@@ -12,7 +12,7 @@
 <!-- PROJECT LOGO -->
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/9839481/209770761-99fd940f-3c75-407b-a339-9fd2cd2c5b7f.svg">
+  <img src="https://github.com/tekcapzule/tekcapzule-web/assets/9839481/bc965502-9a3a-4eb0-bb56-f1e9c0f4a5b0.svg">
   <h3 align="center">Subscription Service</h3>
   <p align="center">
     A set of lambda functions to manage subscriptions in TekCapzule
