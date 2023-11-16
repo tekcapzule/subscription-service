@@ -36,7 +36,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                     .subscriptionType(subscribeCommand.getSubscriptionType())
                     .subscriptionPlan(subscribeCommand.getSubscriptionPlan())
                     .activeSince(subscribeCommand.getExecOn())
-                    .channel(subscribeCommand.getChannel())
+                    .subscriptionChannel(subscribeCommand.getSubscriptionChannel())
                     .status(Status.ACTIVE)
                     .build();
         }
