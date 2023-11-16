@@ -4,6 +4,7 @@ import com.tekcapzule.core.utils.HeaderUtil;
 import com.tekcapzule.core.utils.Outcome;
 import com.tekcapzule.core.utils.Stage;
 import com.tekcapzule.subscription.application.config.AppConfig;
+import com.tekcapzule.subscription.application.function.input.GetSubscriptionInput;
 import com.tekcapzule.subscription.application.function.input.GetTransactionInput;
 import com.tekcapzule.subscription.domain.model.Subscription;
 import com.tekcapzule.subscription.domain.service.SubscriptionService;
@@ -18,7 +19,7 @@ import java.util.function.Function;
 
 @Component
 @Slf4j
-public class GetFunction implements Function<Message<GetTransactionInput>, Message<Subscription>> {
+public class GetFunction implements Function<Message<GetSubscriptionInput>, Message<Subscription>> {
 
     private final SubscriptionService subscriptionService;
 
@@ -30,16 +31,16 @@ public class GetFunction implements Function<Message<GetTransactionInput>, Messa
     }
 
     @Override
-    public Message<Subscription> apply(Message<GetTransactionInput> findByInputMessage) {
+    public Message<Subscription> apply(Message<GetSubscriptionInput> findByInputMessage) {
         Map<String, Object> responseHeaders = new HashMap<>();
         Map<String, Object> payload = new HashMap<>();
         Subscription subscription = new Subscription();
         String stage = appConfig.getStage().toUpperCase();
         try {
-            GetTransactionInput getTransactionInput = findByInputMessage.getPayload();
+            GetSubscriptionInput getSubscriptionInput = findByInputMessage.getPayload();
 
-            log.info("Entering get subscription Function Subscription Id:%s", getTransactionInput.getSubscriptionId());
-            subscription = subscriptionService.getSubscription(getTransactionInput.getSubscriptionId());
+            log.info("Entering get subscription Function Subscription Id:%s", getSubscriptionInput.getSubscriptionId());
+            subscription = subscriptionService.getSubscription(getSubscriptionInput.getSubscriptionId());
             Map<String, Object> responseHeader = new HashMap<>();
             responseHeaders = HeaderUtil.populateResponseHeaders(responseHeaders, Stage.valueOf(stage), Outcome.NOT_FOUND);
         } catch (Exception ex) {
