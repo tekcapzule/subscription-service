@@ -101,7 +101,7 @@ jobs:
       # Build inside Docker containers
       - run: sam build
       # Prevent prompts and failure when the stack is unchanged
-      - run: sam deploy --config-env dev --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides Stage=dev
+      - run: sam deploy --config-env dev --no-confirm-changeset --no-fail-on-empty-changeset --disable-rollback --parameter-overrides Stage=dev
   prodDeploy:
     needs: devDeploy
     name: PROD Deploy
