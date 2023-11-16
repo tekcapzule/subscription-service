@@ -57,8 +57,6 @@
 
 This project contains set of functions written in Java 11 to create, update, query and manage TekCapzule subscriptions. It is a multi-module maven project with two modules named application & domain. Application module is a springboot application that exposes these functions and domain module contains the domain logic.
 
-[![![subscription-service](https://user-images.githubusercontent.com/9839481/209930491-09fdfb55-0b47-432e-a9de-c6d657a1befa.png)
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
